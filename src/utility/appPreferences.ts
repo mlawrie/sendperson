@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as util from 'util'
 import {userDataPath} from './electronUtils'
-import defaults from 'lodash/defaults'
+import deepExtend from 'deep-extend'
 
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
@@ -35,6 +35,6 @@ export const appPreferences = {
 
   save: async (preferences: DeepPartial<AppPreferences>): Promise<void> => {
     const existingPreferences = await appPreferences.read()
-    return writeFile(preferencesPath(), JSON.stringify(defaults(existingPreferences, preferences)))
+    return writeFile(preferencesPath(), JSON.stringify(deepExtend(existingPreferences, preferences)))
   }
 }

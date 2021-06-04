@@ -37,7 +37,7 @@ describe('appPreferences', () => {
     it('saves config changes, only altering what is provided', async () => {
       await appPreferences.save({window: {width: -10}})
       const savedContents = await readFile(path.join(randomDirName, 'appPreferences.json'))
-      expect(savedContents.toString()).to.eql('{"window":{"width":1000,"height":800}}')
+      expect(savedContents.toString()).to.eql('{"window":{"width":-10,"height":800}}')
     })
   })
 })

@@ -6,6 +6,7 @@ require = require('esm')(module)
 
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
+import {registerEvents} from './registerEvents'
 
 const createWindow = async() => {
 
@@ -21,7 +22,7 @@ const createWindow = async() => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, '../../index.html'))
-
+  registerEvents(mainWindow)
 }
 
 // This method will be called when Electron has finished
