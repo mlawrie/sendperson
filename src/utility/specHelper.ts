@@ -20,5 +20,5 @@ if (!globalAny.sandbox) {
 
 }
 export const expect = chai.expect
-export const afterPromises = () => new Promise((resolve) => setTimeout(resolve, 0))
+export const afterPromises = () => new Promise((resolve) => process.nextTick(resolve))
 export const sandbox = () => globalAny.sandbox as SinonSandbox
