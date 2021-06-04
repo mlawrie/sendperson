@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
+    "jsx": "react",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
