@@ -6,16 +6,16 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-1ZQa6Gec06SdzXa+OPqMECRceAi+iO8WDimjiKnGnMw='"
+      content="default-src 'self'; script-src 'self' 'sha256-jQFOTQ5Jfn7b+iBxoIhfMImf88G9GdmI7dSk0LcDr8w='"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-1ZQa6Gec06SdzXa+OPqMECRceAi+iO8WDimjiKnGnMw='"
+      content="default-src 'self'; script-src 'self' 'sha256-jQFOTQ5Jfn7b+iBxoIhfMImf88G9GdmI7dSk0LcDr8w='"
     />
   </head>
   <body>
-    <div id="root">foo</div>
+    <div id="root"></div>
     <script src="./dist/electron/renderer.js"></script>
-    <script type="text/javascript">require('./dist/ui/index.js')</script>
+    <script type="text/javascript">require('app-module-path').addPath('./dist');require('./dist/ui/index.js')</script>
   </body>
 </html>

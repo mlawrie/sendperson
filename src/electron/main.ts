@@ -1,9 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {appPreferences} from '../utility/appPreferences'
+require('app-module-path').addPath(require('path').join(__dirname, '..'))
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require = require('esm')(module)
-
+import {appPreferences} from 'utility/appPreferences'
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import {registerEvents} from './registerEvents'

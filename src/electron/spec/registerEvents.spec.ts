@@ -1,6 +1,6 @@
-import {afterPromises, expect, sandbox} from '../utility/specHelper'
-import {registerEvents} from './registerEvents'
-import {appPreferences} from '../utility/appPreferences'
+import {afterPromises, expect, sandbox} from 'utility/spec/specHelper'
+import {registerEvents} from 'electron/registerEvents'
+import {appPreferences} from 'utility/appPreferences'
 
 describe('registerEvents', () => {
   it('saves preferences on window resize', async () => {

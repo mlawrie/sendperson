@@ -1,11 +1,11 @@
 import * as randomstring from 'randomstring'
 import * as path from 'path'
-import {appPreferences} from './appPreferences'
+import {appPreferences} from 'utility/appPreferences'
 import * as fs from 'fs'
 import * as util from 'util'
 import { expect } from 'chai'
-import * as electronUtils from './electronUtils'
-import {sandbox} from './specHelper'
+import * as electronUtils from 'utility/electronUtils'
+import {sandbox} from 'utility/spec/specHelper'
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 

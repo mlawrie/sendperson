@@ -1,8 +1,8 @@
-import {DeepPartial, DeepReadonly} from './types'
+import {DeepPartial, DeepReadonly} from 'utility/constants'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as util from 'util'
-import {userDataPath} from './electronUtils'
+import {userDataPath} from 'utility/electronUtils'
 import deepExtend from 'deep-extend'
 
 const readFile = util.promisify(fs.readFile)

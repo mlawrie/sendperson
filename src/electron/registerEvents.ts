@@ -1,6 +1,6 @@
 import {BrowserWindow} from 'electron'
-import {appPreferences} from '../utility/appPreferences'
-import {throttle} from '../utility/throttle'
+import {appPreferences} from 'utility/appPreferences'
+import {throttle} from 'utility/throttle'
 
 export const registerEvents = (window: BrowserWindow) => {
   const saveDimensions = throttle(async () => {

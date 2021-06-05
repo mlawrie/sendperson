@@ -34,6 +34,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "app-module-path": "^2.2.0",
     "deep-extend": "^0.6.0",
     "electron": "^9.4.0",
     "esm": "^3.2.25",
