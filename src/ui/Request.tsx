@@ -9,20 +9,39 @@ type RequestProps = Readonly<{
   onSendPressed: () => void
 }>
 
-export const Request = (props: RequestProps) => {
-  const Select = styled.select`
-    border: 1px solid #ddd;
-    padding: 0 10px;
-    height: ${layout.largeComponent.height};
-    ${layout.borderRadius}
+const Select = styled.select`
+    ${layout.largeInput}
+    width: 120px;
+    display: flex;
   `
 
+const Input = styled.input`
+    ${layout.largeInput}
+    margin-left: 20px;
+    display: flex;
+    flex-grow: 1;
+  `
+
+const Button = styled.button`
+    ${layout.largeInput}
+    margin-left: 20px;
+    display: flex;
+  `
+
+const Section = styled.section`
+    display: flex;
+    flex-direction: row;
+  `
+
+export const Request = (props: RequestProps) => {
+
   return (
-    <section>
+    <Section>
       <Select defaultValue={props.method}>
         {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
       </Select>
-      <input type='text' onChange={(e) => props.onUriChanged(e.target.value)}/>
-    </section>
+      <Input type='text' onChange={(e) => props.onUriChanged(e.target.value)}/>
+      <Button onClick={() => props.onSendPressed()}>Send</Button>
+    </Section>
   )
 }
