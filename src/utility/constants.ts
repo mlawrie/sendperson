@@ -12,3 +12,10 @@ export type DeepPartial<T> = {
 
 export const HTTP_METHODS = ['GET', 'PUT', 'POST', 'PATCH']
 export type HttpMethod = typeof HTTP_METHODS[number]
+
+export const layout = {
+  borderRadius: 'border-radius: 3px;',
+  largeComponent: {
+    height: '30px'
+  }
+}

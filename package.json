@@ -22,6 +22,7 @@
     "@types/react-dom": "^17.0.6",
     "@types/sinon": "^10.0.2",
     "@types/sinon-chai": "^3.2.5",
+    "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "chai": "^4.3.4",
@@ -40,7 +41,8 @@
     "esm": "^3.2.25",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0"
   },
   "module": "true"
 }
