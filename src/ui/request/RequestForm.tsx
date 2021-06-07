@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import {layout} from 'utility/constants'
 import styled from 'styled-components'
-import {defaultRequest, HTTP_METHODS, HttpMethod, Request} from 'domain/Request'
+import {HTTP_METHODS, Request} from 'domain/Request'
 
 const Select = styled.select`
     ${layout.largeInput}
