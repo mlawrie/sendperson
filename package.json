@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "yarn build && electron ./dist/electron/main.js",
-    "test": "mocha src/**/*.spec.*"
+    "test": "mocha src/**/*.spec.* --exit"
   },
   "license": "MIT",
   "repository": "https://github.com/mlawrie/sendperson",
