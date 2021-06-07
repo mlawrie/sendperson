@@ -12,10 +12,6 @@ export type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 
-export const HTTP_METHODS = ['GET', 'PUT', 'POST', 'PATCH', 'DELETE']
-export type HttpMethod = typeof HTTP_METHODS[number]
-
-
 const baseLayout = {
   borderRadius: 'border-radius: 3px;',
   largeComponent: {

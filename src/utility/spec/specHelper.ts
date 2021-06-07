@@ -3,6 +3,7 @@ import * as sinon from 'sinon'
 import * as electron from 'electron'
 import sinonChai from 'sinon-chai'
 import chai from 'chai'
+import {fireEvent} from '@testing-library/react'
 
 chai.use(sinonChai)
 
@@ -22,3 +23,4 @@ if (!globalAny.sandbox) {
 export const expect = chai.expect
 export const afterPromises = () => new Promise((resolve) => process.nextTick(resolve))
 export const sandbox = () => globalAny.sandbox as SinonSandbox
+export const updateInput = (input: HTMLElement, value: string) => fireEvent.change(input, { target: { value } })
