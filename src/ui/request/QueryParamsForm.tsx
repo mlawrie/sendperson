@@ -14,9 +14,10 @@ type Props = Readonly<{
 }>
 
 export const QueryParamsForm = (props: Props) => {
+  const {queryParams} = props
   return (
-    <section>
-
+    <section data-testid="query params">
+      {queryParams.map(q => `${q.key} ${q.value} ${q.description}`)}
     </section>
   )
 }
