@@ -1,28 +1,20 @@
 import React from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
 import {replaceAt} from 'utility/replaceAt'
+import {onChangedElementInRecord} from 'utility/onChangedElementInRecord'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
-  const {key, value, description} = props.param
+  const {onQueryParamChanged, param} = props
+  const onChanged = onChangedElementInRecord(onQueryParamChanged, param)
 
-  const update = (prop: keyof QueryParam, e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVar = {...props.param, [prop]: e.target.value}
-    props.onQueryParamChanged(newVar)
-  }
-
+  const inputFor = (prop: keyof QueryParam) => <input type="text"
+                                                   data-testid={prop}
+                                                   onChange={onChanged(prop)}
+                                                   value={param[prop]}/>
   return <article>
-    <input type="text"
-           data-testid="key"
-           onChange={(e) => update('key', e)}
-           value={key}/>
-    <input type="text"
-           data-testid="value"
-           onChange={(e) => update('value', e)}
-           value={value}/>
-    <input type="text"
-           data-testid="description"
-           onChange={(e) => update('description', e)}
-           value={description}/>
+    {inputFor('key')}
+    {inputFor('value')}
+    {inputFor('description')}
   </article>
 }
 type Props = Readonly<{
@@ -51,7 +43,7 @@ export const QueryParamsForm = (props: Props) => {
   return (
     <section data-testid="query params">
       {paramForms}
-      <button data-testid="add button" onClick={onAddPressed}>Add query parameter</button>
+      <button data-testid="query params add button" onClick={onAddPressed}>Add query parameter</button>
     </section>
   )
 }

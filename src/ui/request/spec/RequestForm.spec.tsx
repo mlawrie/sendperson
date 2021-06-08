@@ -1,21 +1,21 @@
-import {fireEvent, render, screen} from '@testing-library/react'
+import {fireEvent, getByTestId, render, screen} from '@testing-library/react'
 import {RequestForm} from 'ui/request/RequestForm'
 import {expect, sandbox, updateInput} from 'utility/spec/specHelper'
-import {defaultRequest, QueryParam, Request} from 'domain/Request'
+import {defaultQueryParam, defaultRequest, QueryParam, Request} from 'domain/Request'
 import React from 'react'
 import Sinon from 'sinon'
 
 describe('RequestForm', () => {
-  let onChangeRequested: Sinon.SinonStub, onSendPressed: Sinon.SinonStub, request: Request
+  let onRequestChanged: Sinon.SinonStub, onSendPressed: Sinon.SinonStub, request: Request
   const queryParam: QueryParam = {
     description: 'desc', key: 'key key', value: 'valuee'
   }
 
   beforeEach(() => {
-    onChangeRequested = sandbox().stub()
+    onRequestChanged = sandbox().stub()
     request = {...defaultRequest(), uri: 'https://foo.com', method: 'PATCH', queryParams: [queryParam]}
     onSendPressed = sandbox().stub()
-    render(<RequestForm onRequestChanged={onChangeRequested} request={request} onSendPressed={onSendPressed}/>)
+    render(<RequestForm onRequestChanged={onRequestChanged} request={request} onSendPressed={onSendPressed}/>)
   })
 
   it('displays initial uri and updates parent when uri changes', async () => {
@@ -25,7 +25,7 @@ describe('RequestForm', () => {
 
     updateInput(inputEl, 'https://example.com')
 
-    expect(onChangeRequested).to.have.been.calledWith({...request, uri: 'https://example.com'})
+    expect(onRequestChanged).to.have.been.calledWith({...request, uri: 'https://example.com'})
   })
 
   it('displays initial method and updates parent when method changes', async () => {
@@ -35,7 +35,7 @@ describe('RequestForm', () => {
 
     updateInput(inputEl, 'POST')
 
-    expect(onChangeRequested).to.have.been.calledWith({...request, method: 'POST'})
+    expect(onRequestChanged).to.have.been.calledWith({...request, method: 'POST'})
   })
 
   it('updates parent when send pressed', async () => {
@@ -46,7 +46,15 @@ describe('RequestForm', () => {
   })
 
   it('diplays initial query params', async () => {
-    const element = await screen.findByTestId('query params')
-    expect(element.textContent).to.contain('key key valuee desc')
+    const queryForm = await screen.findByTestId('query params')
+    const keyEl = await getByTestId(queryForm, 'key') as HTMLInputElement
+    expect(keyEl.value).to.eql('key key')
+  })
+
+  it('updates parent when query params change', async () => {
+    const addButton = await screen.findByTestId('query params add button')
+    fireEvent.click(addButton)
+    expect(onRequestChanged).to.be.called
+    expect(onRequestChanged.lastCall.firstArg.queryParams).to.eql([queryParam, defaultQueryParam()])
   })
 })

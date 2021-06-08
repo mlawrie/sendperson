@@ -15,7 +15,7 @@ describe('QueryParamsForm', () => {
 
   it('adds a query param', async () => {
     render(<QueryParamsForm onQueryParamsChanged={onQueryParamsChanged} queryParams={[]}/>)
-    const addButton = await screen.findByTestId('add button')
+    const addButton = await screen.findByTestId('query params add button')
     fireEvent.click(addButton)
     expect(onQueryParamsChanged).to.have.been.calledWith([defaultQueryParam()])
   })
