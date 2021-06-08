@@ -35,7 +35,7 @@ export const QueryParamsForm = (props: Props) => {
   }
 
   const paramForms = queryParams.map((q, index) =>
-    <ParamForm key={q.key}
+    <ParamForm key={index}
                param={q}
                onQueryParamChanged={(p) => onQueryParamChanged(p, index)}
     />)
