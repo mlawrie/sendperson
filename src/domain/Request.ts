@@ -13,6 +13,8 @@ export type Request = Readonly<{
   uri: string
 }>
 
+export const defaultQueryParam = (): QueryParam => ({key: '', description: '', value: ''})
+
 export const defaultRequest = (): Request => ({
   method: 'GET',
   uri: '',

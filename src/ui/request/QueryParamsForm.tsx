@@ -1,23 +1,57 @@
 import React from 'react'
-import styled from 'styled-components'
-import {QueryParam} from 'domain/Request'
+import {defaultQueryParam, QueryParam} from 'domain/Request'
+import {replaceAt} from 'utility/replaceAt'
 
-type OnChanged = (p: QueryParam[]) => void
+const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
+  const {key, value, description} = props.param
 
+  const update = (prop: keyof QueryParam, e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVar = {...props.param, [prop]: e.target.value}
+    props.onQueryParamChanged(newVar)
+  }
 
-const ParamForm = (props: Readonly<{param: QueryParam, onQueryParamsChanged: OnChanged}>) => {
-
+  return <article>
+    <input type="text"
+           data-testid="key"
+           onChange={(e) => update('key', e)}
+           value={key}/>
+    <input type="text"
+           data-testid="value"
+           onChange={(e) => update('value', e)}
+           value={value}/>
+    <input type="text"
+           data-testid="description"
+           onChange={(e) => update('description', e)}
+           value={description}/>
+  </article>
 }
 type Props = Readonly<{
   queryParams: QueryParam[]
-  onQueryParamsChanged: OnChanged
+  onQueryParamsChanged: (p: QueryParam[]) => void
 }>
 
 export const QueryParamsForm = (props: Props) => {
-  const {queryParams} = props
+  const {queryParams, onQueryParamsChanged} = props
+
+  const onQueryParamChanged = (queryParam: QueryParam, index: number) => {
+    const newParams = replaceAt(queryParams, queryParam, index)
+    onQueryParamsChanged(newParams)
+  }
+
+  const onAddPressed = () => {
+    onQueryParamsChanged([...queryParams, defaultQueryParam()])
+  }
+
+  const paramForms = queryParams.map((q, index) =>
+    <ParamForm key={q.key}
+               param={q}
+               onQueryParamChanged={(p) => onQueryParamChanged(p, index)}
+    />)
+
   return (
     <section data-testid="query params">
-      {queryParams.map(q => `${q.key} ${q.value} ${q.description}`)}
+      {paramForms}
+      <button data-testid="add button" onClick={onAddPressed}>Add query parameter</button>
     </section>
   )
 }

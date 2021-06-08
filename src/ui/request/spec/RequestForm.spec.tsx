@@ -48,6 +48,5 @@ describe('RequestForm', () => {
   it('diplays initial query params', async () => {
     const element = await screen.findByTestId('query params')
     expect(element.textContent).to.contain('key key valuee desc')
-
   })
 })
