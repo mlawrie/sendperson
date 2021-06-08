@@ -18,5 +18,5 @@ export const defaultQueryParam = (): QueryParam => ({key: '', description: '', v
 export const defaultRequest = (): Request => ({
   method: 'GET',
   uri: '',
-  queryParams: []
+  queryParams: [defaultQueryParam(), defaultQueryParam(), defaultQueryParam(), defaultQueryParam(), defaultQueryParam()]
 })

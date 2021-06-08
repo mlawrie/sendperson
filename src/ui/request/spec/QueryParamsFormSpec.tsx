@@ -20,6 +20,13 @@ describe('QueryParamsForm', () => {
     expect(onQueryParamsChanged).to.have.been.calledWith([defaultQueryParam()])
   })
 
+  it('deletes a query param', async () => {
+    render(<QueryParamsForm onQueryParamsChanged={onQueryParamsChanged} queryParams={[defaultQueryParam()]}/>)
+    const addButton = await screen.findByTestId('delete query param')
+    fireEvent.click(addButton)
+    expect(onQueryParamsChanged).to.have.been.calledWith([])
+  })
+
   it('displays initial key and updates parent when key changes', async () => {
     render(<QueryParamsForm onQueryParamsChanged={onQueryParamsChanged}
                             queryParams={[{...defaultQueryParam(), key: 'foo'}]}/>)

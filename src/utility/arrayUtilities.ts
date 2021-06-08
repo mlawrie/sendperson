@@ -5,3 +5,6 @@ export const replaceAt = <T>(array: T[], item: T, index: number) =>
     }
     return q
   })
+
+export const removeAt = <T>(array: T[], index: number) =>
+  array.filter((q, i) => index !== i)
