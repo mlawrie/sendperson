@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
-import {assignTo, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
+import {assignTo, curry2, curry3, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
@@ -28,16 +28,15 @@ type Props = Readonly<{
 export const QueryParamsForm = (props: Props) => {
   const {queryParams, onQueryParamsChanged} = props
 
-  const onQueryParamChanged = (index: number) => (queryParam: QueryParam) => {
-    onQueryParamsChanged(replaceAt(queryParams, queryParam, index))
-  }
+  const replaceQueryParamAtIndex = curry3(replaceAt)(queryParams)
+  const removeQueryParamAtIndex = curry2(removeAt)(queryParams)
+
+  const onQueryParamChanged = (index: number) => pipe(replaceQueryParamAtIndex(index), onQueryParamsChanged)
+
+  const onDeletePressed = pipe(removeQueryParamAtIndex, onQueryParamsChanged)
 
   const onAddPressed = () => {
     onQueryParamsChanged([...queryParams, defaultQueryParam()])
-  }
-
-  const onDeletePressed = (index: number) => () => {
-    onQueryParamsChanged(removeAt(queryParams, index))
   }
 
   const paramForms = queryParams.map((q, index) =>
@@ -45,7 +44,7 @@ export const QueryParamsForm = (props: Props) => {
       <ParamForm
         param={q}
         onQueryParamChanged={onQueryParamChanged(index)}/>
-      <button data-testid="delete query param" onClick={onDeletePressed(index)}>Delete</button>
+      <button data-testid="delete query param" onClick={onDeletePressed(index) as any}>Delete</button>
     </article>)
 
   return (
