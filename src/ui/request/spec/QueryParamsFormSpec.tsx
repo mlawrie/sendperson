@@ -62,5 +62,17 @@ describe('QueryParamsForm', () => {
 
     expect(onQueryParamsChanged).to.be.calledWith([{...defaultQueryParam(), description: 'new description'}])
   })
+
+  it('displays whether initially enabled and updates parent when enabled-ness changes', async () => {
+    render(<QueryParamsForm onQueryParamsChanged={onQueryParamsChanged}
+                            queryParams={[{...defaultQueryParam()}]}/>)
+    const enabledCheckbox = await screen.findByTestId('enabled') as HTMLInputElement
+
+    expect(enabledCheckbox.checked).to.eql(true)
+
+    fireEvent.click(enabledCheckbox)
+
+    expect(onQueryParamsChanged).to.be.calledWith([{...defaultQueryParam(), enabled: false}])
+  })
 })
 

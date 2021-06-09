@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
-import {assignTo, curry2, curry3, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
+import {assignTo, curry2, curry3, eventChecked, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
@@ -11,15 +11,20 @@ const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p:
     <input type="text"
            data-testid={prop}
            onChange={pipe(eventValue, assignTo<QueryParam>(prop), onChanged)}
-           value={param[prop]}/>
+           value={param[prop] as any}/>
   )
 
   return <Fragment>
+    <input type="checkbox"
+           checked={param.enabled}
+           data-testid="enabled"
+           onChange={pipe(eventChecked, assignTo<QueryParam>('enabled'), onChanged)}/>
     {inputFor('key')}
     {inputFor('value')}
     {inputFor('description')}
   </Fragment>
 }
+
 type Props = Readonly<{
   queryParams: QueryParam[]
   onQueryParamsChanged: (p: QueryParam[]) => void

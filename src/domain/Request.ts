@@ -5,6 +5,7 @@ export type QueryParam = Readonly<{
   key: string
   value: string
   description: string
+  enabled: boolean
 }>
 
 export type Request = Readonly<{
@@ -13,7 +14,7 @@ export type Request = Readonly<{
   uri: string
 }>
 
-export const defaultQueryParam = (): QueryParam => ({key: '', description: '', value: ''})
+export const defaultQueryParam = (): QueryParam => ({key: '', description: '', value: '', enabled: true})
 
 export const defaultRequest = (): Request => ({
   method: 'GET',

@@ -8,6 +8,7 @@ import Sinon from 'sinon'
 describe('RequestForm', () => {
   let onRequestChanged: Sinon.SinonStub, onSendPressed: Sinon.SinonStub, request: Request
   const queryParam: QueryParam = {
+    ...defaultQueryParam(),
     description: 'desc', key: 'key key', value: 'valuee'
   }
 

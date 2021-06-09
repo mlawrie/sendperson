@@ -4,7 +4,7 @@ import {expect} from 'utility/spec/specHelper'
 describe('utilities', () => {
   describe('replaceAt', () => {
     it('replaces an element of an array by index', () => {
-      const result = replaceAt(['foo', 'bar', 'baz'], 'banana', 1)
+      const result = replaceAt(['foo', 'bar', 'baz'], 1,'banana')
       expect(result).to.eql(['foo', 'banana', 'baz'])
     })
   })
