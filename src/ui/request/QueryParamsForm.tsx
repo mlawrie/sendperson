@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
 import {assignTo, curry2, curry3, eventChecked, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
-import {pipe} from 'ramda'
+import {flip, pipe} from 'ramda'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
   const {onQueryParamChanged, param} = props
@@ -34,11 +34,12 @@ export const QueryParamsForm = (props: Props) => {
   const {queryParams, onQueryParamsChanged} = props
 
   const replaceQueryParamAtIndex = curry3(replaceAt)(queryParams)
-  const removeQueryParamAtIndex = curry2(removeAt)(queryParams)
 
   const onQueryParamChanged = (index: number) => pipe(replaceQueryParamAtIndex(index), onQueryParamsChanged)
 
-  const onDeletePressed = pipe(removeQueryParamAtIndex, onQueryParamsChanged)
+  const onDeletePressed = (index: number) => () => {
+    onQueryParamsChanged(removeAt(queryParams, index))
+  }
 
   const onAddPressed = () => {
     onQueryParamsChanged([...queryParams, defaultQueryParam()])
