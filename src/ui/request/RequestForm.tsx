@@ -3,7 +3,8 @@ import {layout} from 'utility/constants'
 import styled from 'styled-components'
 import {HTTP_METHODS, Request} from 'domain/Request'
 import {QueryParamsForm} from 'ui/request/QueryParamsForm'
-import {onChangedElementInRecord} from 'utility/onChangedElementInRecord'
+import {assignTo, callWithDefaults, eventValue} from 'utility/utilities'
+import {pipe} from 'ramda'
 
 const Select = styled.select`
     ${layout.largeInput}
@@ -37,23 +38,27 @@ type Props = Readonly<{
 
 export const RequestForm = (props: Props) => {
   const {request, onRequestChanged, onSendPressed} = props
-  const onChanged = onChangedElementInRecord(onRequestChanged, request)
+
+  const onChanged = callWithDefaults(onRequestChanged, request)
+  const onUriChanged = pipe(assignTo<Request>('uri'), onChanged)
+  const onMethodChanged = pipe(assignTo<Request>('method'), onChanged)
+  const onQueryParamsChanged = pipe(assignTo<Request>('queryParams'), onChanged)
 
   return (
     <div>
       <Section>
         <Select defaultValue={request.method}
-                onChange={onChanged('method')}
+                onChange={pipe(eventValue, onMethodChanged)}
                 data-testid="method input">
           {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
         </Select>
         <Input type="text" value={request.uri}
-               onChange={onChanged('uri')}
+               onChange={pipe(eventValue, onUriChanged)}
                data-testid="uri input"/>
         <Button onClick={() => onSendPressed()} data-testid="send button">Send</Button>
       </Section>
       <QueryParamsForm queryParams={request.queryParams}
-                       onQueryParamsChanged={onChanged('queryParams')}/>
+                       onQueryParamsChanged={onQueryParamsChanged}/>
     </div>
   )
 }

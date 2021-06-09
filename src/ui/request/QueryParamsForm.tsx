@@ -1,16 +1,20 @@
 import React, {Fragment} from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
-import {removeAt, replaceAt} from 'utility/arrayUtilities'
-import {onChangedElementInRecord} from 'utility/onChangedElementInRecord'
+import {removeAt, replaceAt} from 'utility/utilities'
+import {assignTo, callWithDefaults, eventValue} from 'utility/utilities'
+import {pipe} from 'ramda'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
   const {onQueryParamChanged, param} = props
-  const onChanged = onChangedElementInRecord(onQueryParamChanged, param)
+  const onChanged = callWithDefaults(onQueryParamChanged, param)
 
-  const inputFor = (prop: keyof QueryParam) => <input type="text"
-                                                      data-testid={prop}
-                                                      onChange={onChanged(prop)}
-                                                      value={param[prop]}/>
+  const inputFor = (prop: keyof QueryParam) => (
+    <input type="text"
+           data-testid={prop}
+           onChange={pipe(eventValue, assignTo<QueryParam>(prop), onChanged)}
+           value={param[prop]}/>
+  )
+
   return <Fragment>
     {inputFor('key')}
     {inputFor('value')}
@@ -25,7 +29,7 @@ type Props = Readonly<{
 export const QueryParamsForm = (props: Props) => {
   const {queryParams, onQueryParamsChanged} = props
 
-  const onQueryParamChanged = (queryParam: QueryParam, index: number) => {
+  const onQueryParamChanged = (index: number) => (queryParam: QueryParam) => {
     onQueryParamsChanged(replaceAt(queryParams, queryParam, index))
   }
 
@@ -40,8 +44,8 @@ export const QueryParamsForm = (props: Props) => {
   const paramForms = queryParams.map((q, index) =>
     <article key={index}>
       <ParamForm
-                 param={q}
-                 onQueryParamChanged={(p) => onQueryParamChanged(p, index)}/>
+        param={q}
+        onQueryParamChanged={onQueryParamChanged(index)}/>
       <button data-testid="delete query param" onClick={onDeletePressed(index)}>Delete</button>
     </article>)
 

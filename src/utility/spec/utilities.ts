@@ -1,7 +1,7 @@
-import {replaceAt, removeAt} from 'utility/arrayUtilities'
+import {removeAt, replaceAt} from 'utility/utilities'
 import {expect} from 'utility/spec/specHelper'
 
-describe('arrayUtilities', () => {
+describe('utilities', () => {
   describe('replaceAt', () => {
     it('replaces an element of an array by index', () => {
       const result = replaceAt(['foo', 'bar', 'baz'], 'banana', 1)
