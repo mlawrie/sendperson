@@ -1,4 +1,4 @@
-import {removeAt, replaceAt} from 'utility/utilities'
+import {replaceAt, removeAt} from 'utility/utilities'
 import {expect} from 'utility/spec/specHelper'
 
 describe('utilities', () => {

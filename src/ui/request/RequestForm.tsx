@@ -3,7 +3,7 @@ import {layout} from 'utility/constants'
 import styled from 'styled-components'
 import {HTTP_METHODS, Request} from 'domain/Request'
 import {QueryParamsForm} from 'ui/request/QueryParamsForm'
-import {assignTo, callWithDefaults, eventValue} from 'utility/utilities'
+import {assignTo, eventValue, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 
 const Select = styled.select`
@@ -39,7 +39,7 @@ type Props = Readonly<{
 export const RequestForm = (props: Props) => {
   const {request, onRequestChanged, onSendPressed} = props
 
-  const onChanged = callWithDefaults(onRequestChanged, request)
+  const onChanged = pipe(withDefaults(request), onRequestChanged)
   const onUriChanged = pipe(assignTo<Request>('uri'), onChanged)
   const onMethodChanged = pipe(assignTo<Request>('method'), onChanged)
   const onQueryParamsChanged = pipe(assignTo<Request>('queryParams'), onChanged)

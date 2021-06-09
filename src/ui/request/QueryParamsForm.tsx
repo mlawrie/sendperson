@@ -1,12 +1,11 @@
 import React, {Fragment} from 'react'
 import {defaultQueryParam, QueryParam} from 'domain/Request'
-import {removeAt, replaceAt} from 'utility/utilities'
-import {assignTo, callWithDefaults, eventValue} from 'utility/utilities'
+import {assignTo, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 
 const ParamForm = (props: Readonly<{ param: QueryParam, onQueryParamChanged: (p: QueryParam) => void }>) => {
   const {onQueryParamChanged, param} = props
-  const onChanged = callWithDefaults(onQueryParamChanged, param)
+  const onChanged = pipe(withDefaults(param), onQueryParamChanged)
 
   const inputFor = (prop: keyof QueryParam) => (
     <input type="text"

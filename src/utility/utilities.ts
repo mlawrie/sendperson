@@ -15,4 +15,4 @@ export const eventValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
 
 export const assignTo = <T>(key: keyof T) => (value: T[typeof key]) => ({[key]: value})
 
-export const callWithDefaults = <T>(fn: (a: T) => void, defaults: T) => (newValues: Partial<T>) => fn({...defaults, ...newValues})
+export const withDefaults = <T>(defaults: T) => (newValues: Partial<T>) => ({...defaults, ...newValues})
