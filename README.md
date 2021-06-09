@@ -1,11 +1,16 @@
 # sendperson
 
+More to see soon!
+
 ## Development
 
+To start the app:
 ```
 yarn install
 yarn start
 ```
+
+To recompile automatically, run `yarn watch` as well
 
 ## Planned features
 
@@ -29,9 +34,3 @@ yarn start
 1. Import/export collections
 1. Import collections from postman
 1. File uploads
-
-## Re-compile automatically
-
-To recompile automatically and to allow using electron-reload, run this in a separate terminal:
-
-```yarn run watch```
