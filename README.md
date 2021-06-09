@@ -27,10 +27,11 @@ To recompile automatically, run `yarn watch` as well
 1. Actually send responses and show results
 1. Save responses and requests
 1. Tabs
-1. Package for distribution: **release waterline**
+1. Package for distribution: npm
 #### 1.1 Release   
 1. Collections
 1. Default headers
 1. Import/export collections
 1. Import collections from postman
 1. File uploads
+1. Package for distribution: brew, MacOS DMG, Windows
