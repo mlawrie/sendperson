@@ -2,7 +2,7 @@ import React from 'react'
 import {layout} from 'utility/constants'
 import styled from 'styled-components'
 import {HTTP_METHODS, Request} from 'domain/Request'
-import {QueryParamsForm} from 'ui/request/QueryParamsForm'
+import {ParamsForm} from 'ui/request/ParamsForm'
 import {assignTo, eventValue, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 
@@ -42,7 +42,8 @@ export const RequestForm = (props: Props) => {
   const onChanged = pipe(withDefaults(request), onRequestChanged)
   const onUriChanged = pipe(assignTo<Request>('uri'), onChanged)
   const onMethodChanged = pipe(assignTo<Request>('method'), onChanged)
-  const onQueryParamsChanged = pipe(assignTo<Request>('queryParams'), onChanged)
+  const onParamsChanged = pipe(assignTo<Request>('queryParams'), onChanged)
+  const onHeadersChanged = pipe(assignTo<Request>('headers'), onChanged)
 
   return (
     <div>
@@ -57,8 +58,15 @@ export const RequestForm = (props: Props) => {
                data-testid="uri input"/>
         <Button onClick={() => onSendPressed()} data-testid="send button">Send</Button>
       </Section>
-      <QueryParamsForm queryParams={request.queryParams}
-                       onQueryParamsChanged={onQueryParamsChanged}/>
+      <ParamsForm params={request.queryParams}
+                  entityName="query param"
+                  entityNamePluralCapitalized="Query Params"
+                  onParamsChanged={onParamsChanged}/>
+
+      <ParamsForm params={request.headers}
+                  entityName="header"
+                  entityNamePluralCapitalized="Headers"
+                  onParamsChanged={onHeadersChanged}/>
     </div>
   )
 }

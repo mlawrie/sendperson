@@ -1,7 +1,7 @@
 export const HTTP_METHODS = ['GET', 'PUT', 'POST', 'PATCH', 'DELETE']
 export type HttpMethod = typeof HTTP_METHODS[number]
 
-export type QueryParam = Readonly<{
+export type Param = Readonly<{
   key: string
   value: string
   description: string
@@ -9,15 +9,17 @@ export type QueryParam = Readonly<{
 }>
 
 export type Request = Readonly<{
-  queryParams: QueryParam[]
+  headers: Param[]
+  queryParams: Param[]
   method: HttpMethod
   uri: string
 }>
 
-export const defaultQueryParam = (): QueryParam => ({key: '', description: '', value: '', enabled: true})
+export const defaultParam = (): Param => ({key: '', description: '', value: '', enabled: true})
 
 export const defaultRequest = (): Request => ({
   method: 'GET',
   uri: '',
-  queryParams: [defaultQueryParam(), defaultQueryParam(), defaultQueryParam(), defaultQueryParam(), defaultQueryParam()]
+  queryParams: [defaultParam(), defaultParam(), defaultParam()],
+  headers: [defaultParam(), defaultParam(), defaultParam()]
 })
