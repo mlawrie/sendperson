@@ -1,16 +1,16 @@
 import React, {Fragment} from 'react'
-import {defaultParam, Param} from 'domain/Request'
+import {defaultParam, RequestParam} from 'domain/Request'
 import {assignTo, curry2, curry3, eventChecked, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
 import {flip, pipe} from 'ramda'
 
-const ParamForm = (props: Readonly<{ param: Param, onParamChanged: (p: Param) => void }>) => {
+const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: RequestParam) => void }>) => {
   const {onParamChanged, param} = props
   const onChanged = pipe(withDefaults(param), onParamChanged)
 
-  const inputFor = (prop: keyof Param) => (
+  const inputFor = (prop: keyof RequestParam) => (
     <input type="text"
            data-testid={prop}
-           onChange={pipe(eventValue, assignTo<Param>(prop), onChanged)}
+           onChange={pipe(eventValue, assignTo<RequestParam>(prop), onChanged)}
            value={param[prop] as any}/>
   )
 
@@ -18,7 +18,7 @@ const ParamForm = (props: Readonly<{ param: Param, onParamChanged: (p: Param) =>
     <input type="checkbox"
            checked={param.enabled}
            data-testid="enabled"
-           onChange={pipe(eventChecked, assignTo<Param>('enabled'), onChanged)}/>
+           onChange={pipe(eventChecked, assignTo<RequestParam>('enabled'), onChanged)}/>
     {inputFor('key')}
     {inputFor('value')}
     {inputFor('description')}
@@ -26,10 +26,10 @@ const ParamForm = (props: Readonly<{ param: Param, onParamChanged: (p: Param) =>
 }
 
 type Props = Readonly<{
-  params: Param[]
-  onParamsChanged: (p: Param[]) => void
-  entityName?: 'query param' | 'header'
-  entityNamePluralCapitalized?: 'Query Params' | 'Headers'
+  params: RequestParam[]
+  onParamsChanged: (p: RequestParam[]) => void
+  entityName?: 'query param' | 'header' | 'form field'
+  entityNamePluralCapitalized?: 'Query Params' | 'Headers' | 'Form Fields'
 }>
 
 export const ParamsForm = (props: Props) => {

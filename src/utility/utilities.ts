@@ -14,7 +14,7 @@ export const curry3 = <T1, T2, T3, R>(fn: (a1: T1, a2: T2, a3: T3) => R) => (a1:
 export const removeAt = <T>(array: T[], index: number) =>
   array.filter((q, i) => index !== i)
 
-export const eventValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => e.target.value
+export const eventValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => e.target.value
 export const eventChecked = (e: ChangeEvent<HTMLInputElement>) => e.target.checked
 
 export const assignTo = <T>(key: keyof T) => (value: T[typeof key]) => ({[key]: value})

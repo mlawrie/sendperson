@@ -1,33 +1,43 @@
 export const HTTP_METHODS = ['GET', 'PUT', 'POST', 'PATCH', 'DELETE']
-export const BODY_FORMATS = ['none', 'form-data', 'x-www-form-urlencoded', 'text']
-export const BODY_TEXT_FORMATS = ['text/plain', 'text/html', 'text/xml', 'application/json', 'text/javascript']
 export type HttpMethod = typeof HTTP_METHODS[number]
-export type BodyFormat = typeof BODY_FORMATS[number]
-export type BodyTextFormat = typeof BODY_TEXT_FORMATS[number]
 
-export type Param = Readonly<{
+export const BODY_FORMATS = ['none', 'multipart/form-data', 'application/x-www-form-urlencoded', 'text/plain', 'text/html', 'text/xml', 'application/json', 'text/javascript']
+export type BodyFormat = typeof BODY_FORMATS[number]
+
+export const FORM_FIELDS_BODY_FORMATS: BodyFormat[] = ['multipart/form-data', 'application/x-www-form-urlencoded']
+export const TEXT_BODY_FORMATS: BodyFormat[] = ['text/plain', 'text/html', 'text/xml', 'application/json', 'text/javascript']
+
+export type RequestParam = Readonly<{
   key: string
   value: string
   description: string
   enabled: boolean
 }>
 
-export type Request = Readonly<{
-  headers: Param[]
-  queryParams: Param[]
-  method: HttpMethod
-  uri: string
-  bodyTextFormat: BodyTextFormat,
-  bodyFormat: BodyFormat
+export type RequestBody = Readonly<{
+  format: BodyFormat
+  fields: RequestParam[]
+  text: string
 }>
 
-export const defaultParam = (): Param => ({key: '', description: '', value: '', enabled: true})
+export type Request = Readonly<{
+  headers: RequestParam[]
+  queryParams: RequestParam[]
+  method: HttpMethod
+  uri: string
+  body: RequestBody
+}>
+
+export const defaultParam = (): RequestParam => ({key: '', description: '', value: '', enabled: true})
 
 export const defaultRequest = (): Request => ({
   method: 'GET',
   uri: '',
   queryParams: [defaultParam(), defaultParam(), defaultParam()],
   headers: [defaultParam(), defaultParam(), defaultParam()],
-  bodyFormat: 'none',
-  bodyTextFormat: 'application/json'
+  body: {
+    format: 'none',
+    text: '',
+    fields: [defaultParam(), defaultParam(), defaultParam()]
+  }
 })

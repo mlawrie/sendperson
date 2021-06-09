@@ -1,18 +1,18 @@
 import {findByTestId, fireEvent, getByTestId, render, screen} from '@testing-library/react'
 import {RequestForm} from 'ui/request/RequestForm'
 import {expect, sandbox, updateInput} from 'utility/spec/specHelper'
-import {defaultParam, defaultRequest, Param, Request} from 'domain/Request'
+import {defaultParam, defaultRequest, RequestParam, Request} from 'domain/Request'
 import React from 'react'
 import Sinon from 'sinon'
 
 describe('RequestForm', () => {
   let onRequestChanged: Sinon.SinonStub, onSendPressed: Sinon.SinonStub, request: Request
-  const queryParam: Param = {
+  const queryParam: RequestParam = {
     ...defaultParam(),
     description: 'desc', key: 'key key', value: 'valuee'
   }
 
-  const header: Param = {
+  const header: RequestParam = {
     ...defaultParam(),
     description: 'header desc', key: 'X-Correlation-Id', value: '1234'
   }
@@ -24,7 +24,12 @@ describe('RequestForm', () => {
       uri: 'https://foo.com',
       method: 'PATCH',
       queryParams: [queryParam],
-      headers: [header]
+      headers: [header],
+      body: {
+        text: 'body text',
+        format: 'text/plain',
+        fields: []
+      }
     }
     onSendPressed = sandbox().stub()
     render(<RequestForm onRequestChanged={onRequestChanged} request={request} onSendPressed={onSendPressed}/>)
@@ -83,5 +88,19 @@ describe('RequestForm', () => {
     fireEvent.click(addButton)
     expect(onRequestChanged).to.be.called
     expect(onRequestChanged.lastCall.firstArg.headers).to.eql([header, defaultParam()])
+  })
+
+  it('displays initial body', async () => {
+    const bodyForm = await screen.findByTestId('request body')
+    const selectInput = await getByTestId(bodyForm, 'format input') as HTMLInputElement
+    expect(selectInput.value).to.eql('text/plain')
+  })
+
+  it('updates parent when body changes', async () => {
+    const bodyForm = await screen.findByTestId('request body')
+    const textInput = await findByTestId(bodyForm, 'request body text')
+    updateInput(textInput, 'new body')
+    expect(onRequestChanged).to.be.called
+    expect(onRequestChanged.lastCall.firstArg.body.text).to.eql('new body')
   })
 })

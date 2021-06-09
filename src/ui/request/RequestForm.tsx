@@ -5,6 +5,7 @@ import {HTTP_METHODS, Request} from 'domain/Request'
 import {ParamsForm} from 'ui/request/ParamsForm'
 import {assignTo, eventValue, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
+import {BodyForm} from 'ui/request/BodyForm'
 
 const Select = styled.select`
     ${layout.largeInput}
@@ -44,6 +45,7 @@ export const RequestForm = (props: Props) => {
   const onMethodChanged = pipe(assignTo<Request>('method'), onChanged)
   const onParamsChanged = pipe(assignTo<Request>('queryParams'), onChanged)
   const onHeadersChanged = pipe(assignTo<Request>('headers'), onChanged)
+  const onBodyChanged = pipe(assignTo<Request>('body'), onChanged)
 
   return (
     <div>
@@ -62,11 +64,11 @@ export const RequestForm = (props: Props) => {
                   entityName="query param"
                   entityNamePluralCapitalized="Query Params"
                   onParamsChanged={onParamsChanged}/>
-
       <ParamsForm params={request.headers}
                   entityName="header"
                   entityNamePluralCapitalized="Headers"
                   onParamsChanged={onHeadersChanged}/>
+      <BodyForm body={request.body} onBodyChanged={onBodyChanged}/>
     </div>
   )
 }
