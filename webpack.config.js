@@ -2,6 +2,8 @@
 const path = require('path')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -14,6 +16,13 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }, {
+        test: /\.ttf$/,
+        use: ['file-loader']
+      }
     ],
   },
   resolve: {
@@ -24,4 +33,9 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  plugins: [
+    new MonacoWebpackPlugin({
+      languages: ['json', 'javascript', 'html', 'xml']
+    })
+  ]
 }

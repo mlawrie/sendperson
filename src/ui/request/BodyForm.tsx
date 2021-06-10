@@ -4,15 +4,7 @@ import styled from 'styled-components'
 import {ParamsForm} from 'ui/request/ParamsForm'
 import {pipe} from 'ramda'
 import {assignTo, eventValue, withDefaults} from 'utility/utilities'
-
-
-const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => void, text: string }>) => {
-  const {text, onTextChanged} = props
-  return <Fragment>
-    <textarea data-testid="request body text" value={text} onChange={pipe(eventValue, onTextChanged)}/>
-  </Fragment>
-}
-
+import {TextBodyForm} from 'ui/request/TextBodyForm'
 
 type Props = Readonly<{
   body: RequestBody
