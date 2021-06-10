@@ -37,3 +37,4 @@ To recompile automatically, run `yarn watch` as well
 1. Package for distribution: brew, MacOS DMG, Windows
 #### 1.2 Release
 1. Scan for secrets
+1. Cookies
