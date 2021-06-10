@@ -9,7 +9,7 @@ export const App = () => {
   const onRequestChanged = (request: Request) => {
     setRequest(request)
   }
-  
+
   return (<div>
     <h1>sendperson</h1>
     <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {}}/>
