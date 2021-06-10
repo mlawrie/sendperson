@@ -6,15 +6,16 @@ import * as util from 'util'
 import { expect } from 'chai'
 import * as electronUtils from 'utility/electronUtils'
 import {sandbox} from 'utility/spec/specHelper'
+import os from 'os'
+
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
-
 
 describe('appPreferences', () => {
   let randomDirName: string
 
   beforeEach(() => {
-    randomDirName = path.join('dist', `test-${randomstring.generate()}`)
+    randomDirName = path.join(os.tmpdir(), `test-${randomstring.generate()}`)
     sandbox().stub(electronUtils, 'userDataPath').returns(randomDirName)
 
     if (!fs.existsSync(randomDirName)) {
