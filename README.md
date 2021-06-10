@@ -7,7 +7,8 @@ More to see soon!
 To start the app:
 ```
 yarn install
-yarn start
+yarn watch
+yarn start # in another tab
 ```
 
 To recompile automatically, run `yarn watch` as well

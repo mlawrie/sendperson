@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsc -p tsconfig.electron.json && webpack --progress",
+    "watch": "tsc -p tsconfig.electron.json && webpack --watch --progress",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "yarn build && electron ./dist/electron/main.js",
+    "start": "electron ./dist/electron/main.js",
     "test": "mocha src/**/*.spec.* --exit"
   },
   "license": "MIT",
@@ -34,20 +34,24 @@
     "randomstring": "^1.2.1",
     "sinon": "^11.1.1",
     "sinon-chai": "^3.7.0",
+    "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.2"
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typescript": "^4.3.2",
+    "webpack-cli": "^4.7.2"
   },
   "dependencies": {
     "@types/ramda": "^0.27.40",
     "app-module-path": "^2.2.0",
     "deep-extend": "^0.6.0",
-    "electron": "^9.4.0",
+    "electron": "^13.1.2",
     "esm": "^3.2.25",
     "lodash": "^4.17.21",
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "webpack": "^5.38.1"
   },
   "module": "true"
 }
