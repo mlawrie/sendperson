@@ -7,7 +7,7 @@
     "watch": "tsc -p tsconfig.electron.json && webpack --watch --progress",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "electron ./dist/electron/main.js",
-    "test": "mocha src/**/*.spec.* --exit"
+    "test": "jest"
   },
   "license": "MIT",
   "repository": "https://github.com/mlawrie/sendperson",
