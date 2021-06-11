@@ -28,7 +28,7 @@ export const BodyForm = (props: Props) => {
                                     onParamsChanged={onParamsChanged}
   />
 
-  const textElement = <TextBodyForm text={body.text} onTextChanged={onTextChanged}/>
+  const textElement = <TextBodyForm format={body.format} text={body.text} onTextChanged={onTextChanged}/>
 
   return <section data-testid="request body">
     <h3>Request Body</h3>
