@@ -22,10 +22,15 @@ To recompile automatically, run `yarn watch` as well
 1. Request UI
    1. ~~Query params~~
    1. ~~Headers~~
-   1. Request bodies _(in progress)_
+   1. ~~Request bodies~~
    1. Make it pretty
 1. Response UI
+   1. Split pane with resize
+   1. Response body
+   1. Headers
+   1. Status and time
 1. Actually send responses and show results
+   1. Show generated headers, allow override
 1. Save responses and requests
 1. Tabs
 1. Package for distribution: npm
