@@ -49,14 +49,11 @@ const LANGUAGES = {
 
 export const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => void, text: string, format: BodyFormat }>) => {
   const {text, onTextChanged} = props
-  const monaco = useRef<MonacoEditor>(null)
-  const container = useRef<HTMLDivElement>(null)
-
   const language = (LANGUAGES as any)[props.format]
-
-  return <Container ref={container}>
+  
+  return <Container>
     <MonacoEditor
-      ref={monaco}
+
       options={{
         renderValidationDecorations: 'on',
         scrollBeyondLastLine: false,
