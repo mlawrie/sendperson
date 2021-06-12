@@ -24,6 +24,7 @@ To recompile automatically, run `yarn watch` as well
    1. ~~Headers~~
    1. ~~Request bodies~~
    1. Make it pretty
+   1. Figure out why monaco isn't highlighting syntax errors
 1. Response UI
    1. Split pane with resize
    1. Response body

@@ -43,17 +43,15 @@ const LANGUAGES = {
   'text/plain': 'plaintext',
   'text/html': 'html',
   'text/xml': 'xml',
-  'application/json': 'json',
-  'text/javascript': 'javascript'
+  'application/json': 'json'
 }
 
 export const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => void, text: string, format: BodyFormat }>) => {
   const {text, onTextChanged} = props
   const language = (LANGUAGES as any)[props.format]
-  
+
   return <Container>
     <MonacoEditor
-
       options={{
         renderValidationDecorations: 'on',
         scrollBeyondLastLine: false,
