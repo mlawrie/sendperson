@@ -33,7 +33,7 @@ const baseLayout = {
 }
 
 export const layout = deepExtend(baseLayout, color, {
-    largeInput: `
+  largeInput: `
       box-sizing: border-box;
       ${baseLayout.font.medium}
       border: 1px solid ${color.darkGrey}; ${baseLayout.borderRadius}; 
@@ -41,5 +41,5 @@ export const layout = deepExtend(baseLayout, color, {
       height: ${baseLayout.largeComponent.height};
       line-height: ${baseLayout.largeComponent.height};
       ${baseLayout.borderRadius}`
-  }
+}
 )

@@ -6,15 +6,67 @@
   ],
   "rules": {
     "quotes": "off",
-    "@typescript-eslint/quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-unused-vars": "off",
-    "semi": ["error", "never"]
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-trailing-spaces": [
+      "error",
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "no-irregular-whitespace": [
+      "error",
+      {
+        "skipTemplates": true
+      }
+    ],
+    "react/jsx-indent-props": [
+      "error",
+      "first"
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": [
+          "JSXElement *"
+        ],
+        "CallExpression": {
+          "arguments": "first"
+        },
+        "ArrayExpression": "first",
+        "FunctionExpression": {
+          "parameters": "first"
+        },
+        "ObjectExpression": "first",
+        "FunctionDeclaration": {
+          "parameters": "first"
+        }
+      }
+    ]
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended"
-  ]
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:json/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
