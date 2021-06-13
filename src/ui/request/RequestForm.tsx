@@ -31,6 +31,10 @@ const Section = styled.section`
     flex-direction: row;
   `
 
+const Container = styled.div`
+    padding: ${layout.padding}
+  `
+
 type Props = Readonly<{
   request: Request
   onRequestChanged: (r: Request) => void
@@ -48,7 +52,7 @@ export const RequestForm = (props: Props) => {
   const onBodyChanged = pipe(assignTo<Request>('body'), onChanged)
 
   return (
-    <div>
+    <Container>
       <Section>
         <Select defaultValue={request.method}
                 onChange={pipe(eventValue, onMethodChanged)}
@@ -69,6 +73,6 @@ export const RequestForm = (props: Props) => {
                   entityNamePluralCapitalized="Headers"
                   onParamsChanged={onHeadersChanged}/>
       <BodyForm body={request.body} onBodyChanged={onBodyChanged}/>
-    </div>
+    </Container>
   )
 }

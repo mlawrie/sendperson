@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.electron.json && webpack --progress",
     "watch": "tsc -p tsconfig.electron.json && webpack --watch --progress",
-    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "lint": "eslint -c .eslintrc --fix ./src",
     "start": "electron ./dist/electron/main.js",
     "test": "jest"
   },
