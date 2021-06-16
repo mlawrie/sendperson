@@ -13,17 +13,20 @@ module.exports = {
     rules: [
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-          }
-        }, 'sass-loader']
+        use: ['style-loader',
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {plugins: () => [require('autoprefixer')]}
+                }
+              },
+              'sass-loader']
       },
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -32,7 +35,7 @@ module.exports = {
         test: /\.ttf$/,
         use: ['file-loader']
       }
-    ],
+    ]
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -40,7 +43,7 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist')
   },
   plugins: [
     new MonacoWebpackPlugin({

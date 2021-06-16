@@ -62,7 +62,7 @@ export const RequestForm = (props: Props) => {
         <Input type="text" value={request.uri}
                onChange={pipe(eventValue, onUriChanged)}
                data-testid="uri input"/>
-        <Button onClick={() => onSendPressed()} data-testid="send button">Send</Button>
+        <Button onClick={() => onSendPressed()} className={'btn btn-primary'} data-testid="send button">Send</Button>
       </Section>
       <ParamsForm params={request.queryParams}
                   entityName="query param"
