@@ -1,13 +1,8 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import MonacoEditor from 'react-monaco-editor'
-import styled from 'styled-components'
 import {EditorDidMount} from 'react-monaco-editor/src/types'
 import {BodyFormat} from 'domain/Request'
-
-const Container = styled.div`
-    width: 100%;
-    height: 100px;
-  `
+import styles from './TextBodyForm.scss'
 
 let ignoreEvent = false
 const updateHeight: EditorDidMount = (editor, monaco) => {
@@ -50,7 +45,7 @@ export const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => voi
   const {text, onTextChanged} = props
   const language = (LANGUAGES as any)[props.format]
 
-  return <Container>
+  return <div className={styles.container}>
     <MonacoEditor
       options={{
         renderValidationDecorations: 'on',
@@ -73,5 +68,5 @@ export const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => voi
       editorDidMount={editorDidMount}
       onChange={onTextChanged}
     />
-  </Container>
+  </div>
 }
