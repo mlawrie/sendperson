@@ -12,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /bootstrap\.s[ac]ss$/i,
         use: ['style-loader',
               'css-loader',
               {
@@ -20,6 +20,18 @@ module.exports = {
                 options: {
                   postcssOptions: {plugins: () => [require('autoprefixer')]}
                 }
+              },
+              'sass-loader']
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /bootstrap\.s[ac]ss$/i,
+        use: ['style-loader',
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true
+                },
               },
               'sass-loader']
       },

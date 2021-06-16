@@ -1,39 +1,11 @@
 import React from 'react'
-import {layout} from 'utility/constants'
-import styled from 'styled-components'
 import {HTTP_METHODS, Request} from 'domain/Request'
 import {ParamsForm} from 'ui/request/ParamsForm'
 import {assignTo, eventValue, withDefaults} from 'utility/utilities'
 import {pipe} from 'ramda'
 import {BodyForm} from 'ui/request/BodyForm'
 
-const Select = styled.select`
-    ${layout.largeInput}
-    width: 120px;
-    display: flex;
-  `
-
-const Input = styled.input`
-    ${layout.largeInput}
-    margin-left: 20px;
-    display: flex;
-    flex-grow: 1;
-  `
-
-const Button = styled.button`
-    ${layout.largeInput}
-    margin-left: 20px;
-    display: flex;
-  `
-
-const Section = styled.section`
-    display: flex;
-    flex-direction: row;
-  `
-
-const Container = styled.div`
-    padding: ${layout.padding}
-  `
+import styles from './RequestForm.scss'
 
 type Props = Readonly<{
   request: Request
@@ -52,18 +24,26 @@ export const RequestForm = (props: Props) => {
   const onBodyChanged = pipe(assignTo<Request>('body'), onChanged)
 
   return (
-    <Container>
-      <Section>
-        <Select defaultValue={request.method}
-                onChange={pipe(eventValue, onMethodChanged)}
-                data-testid="method input">
-          {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
-        </Select>
-        <Input type="text" value={request.uri}
-               onChange={pipe(eventValue, onUriChanged)}
-               data-testid="uri input"/>
-        <Button onClick={() => onSendPressed()} className={'btn btn-primary'} data-testid="send button">Send</Button>
-      </Section>
+    <div>
+      <section className="row">
+        <div className="col-3">
+          <select defaultValue={request.method}
+                  className="form-select form-select-lg"
+                  onChange={pipe(eventValue, onMethodChanged)}
+                  data-testid="method input">
+            {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
+          </select>
+        </div>
+        <div className="col-7">
+          <input type="text" value={request.uri}
+                 className="form-control form-control-lg"
+                 onChange={pipe(eventValue, onUriChanged)}
+                 data-testid="uri input"/>
+        </div>
+        <div className="col-2">
+          <button onClick={() => onSendPressed()} className={`btn btn-lg btn-primary ${styles.send}`} data-testid="send button">Send</button>
+        </div>
+      </section>
       <ParamsForm params={request.queryParams}
                   entityName="query param"
                   entityNamePluralCapitalized="Query Params"
@@ -73,6 +53,6 @@ export const RequestForm = (props: Props) => {
                   entityNamePluralCapitalized="Headers"
                   onParamsChanged={onHeadersChanged}/>
       <BodyForm body={request.body} onBodyChanged={onBodyChanged}/>
-    </Container>
+    </div>
   )
 }
