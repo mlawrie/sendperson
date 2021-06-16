@@ -59,8 +59,8 @@ export const ParamsForm = (props: Props) => {
     </article>)
 
   return (
-    <section data-testid={entityName}>
-      <h3 className={styles.h3}>{entityNamePluralCapitalized}</h3>
+    <section data-testid={entityName} className={styles.container}>
+      <h6>{entityNamePluralCapitalized}</h6>
       {paramForms}
       <button data-testid="params add button" onClick={onAddPressed}>Add {entityName}</button>
     </section>

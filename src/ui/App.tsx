@@ -16,7 +16,9 @@ export const App = () => {
       <div className='col-md-6'>
       <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {}}/>
       </div>
-      <div className='col-md-6' style={{backgroundColor: '#eee'}}>response form</div>
+      <div className='col-md-6' style={{backgroundColor: '#f0f0f0'}}>
+        <h3>Response</h3>
+      </div>
     </div>
   </div>)
 }

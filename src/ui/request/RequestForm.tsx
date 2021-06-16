@@ -25,6 +25,7 @@ export const RequestForm = (props: Props) => {
 
   return (
     <div>
+      <h3>Request</h3>
       <section className="row">
         <div className="col-3">
           <select defaultValue={request.method}
