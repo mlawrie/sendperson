@@ -1,0 +1,16 @@
+.h3 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #333;
+  line-height: 40px;
+}
+
+.input {
+  border: 1px solid;
+  margin: 10px 10px 10px 0;
+  line-height: 30px;
+  &.firstRow {
+    background: #f0f;
+  }
+}

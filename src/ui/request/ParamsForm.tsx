@@ -1,39 +1,16 @@
 import React, {Fragment} from 'react'
 import {defaultParam, RequestParam} from 'domain/Request'
-import {assignTo, curry2, curry3, eventChecked, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
-import {flip, pipe} from 'ramda'
-import styled from 'styled-components'
-import {layout} from 'utility/constants'
+import {assignTo, curry3, eventChecked, eventValue, removeAt, replaceAt, withDefaults} from 'utility/utilities'
+import {pipe} from 'ramda'
+import styles from './ParamsForm.scss'
 
-
-const H3 = styled.h3`
-    ${layout.font.smallTitle}
-  `
-
-const Input = styled.input`
-  border: 1px solid ${layout.darkGrey};
-  ${layout.lineHeight}
-  &:nth-of-type(3n) {
-    border-left: none;
-    border-radius: 0px;
-    border-right: none;
-  }
-  &:nth-of-type(3n+1) {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-  }
-  &:nth-of-type(3n-1) {
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-  }
-`
-
-const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: RequestParam) => void }>) => {
-  const {onParamChanged, param} = props
+const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: RequestParam) => void, firstRow: boolean }>) => {
+  const {onParamChanged, param, firstRow} = props
   const onChanged = pipe(withDefaults(param), onParamChanged)
 
   const inputFor = (prop: keyof RequestParam) => (
-    <Input type="text"
+    <input type="text"
+           className={`${styles.input} ${firstRow ? styles.firstRow : ''}`}
            data-testid={prop}
            onChange={pipe(eventValue, assignTo<RequestParam>(prop), onChanged)}
            value={param[prop] as any}/>
@@ -75,6 +52,7 @@ export const ParamsForm = (props: Props) => {
   const paramForms = params.map((q, index) =>
     <article key={index}>
       <ParamForm
+        firstRow={index === 0}
         param={q}
         onParamChanged={onParamChanged(index)}/>
       <button data-testid="delete param" onClick={onDeletePressed(index) as any}>Delete</button>
@@ -82,7 +60,7 @@ export const ParamsForm = (props: Props) => {
 
   return (
     <section data-testid={entityName}>
-      <H3>{entityNamePluralCapitalized}</H3>
+      <h3 className={styles.h3}>{entityNamePluralCapitalized}</h3>
       {paramForms}
       <button data-testid="params add button" onClick={onAddPressed}>Add {entityName}</button>
     </section>
