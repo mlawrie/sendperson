@@ -11,6 +11,7 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
   'moduleNameMapper': {
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
     '^ui/(.*)$': '<rootDir>/src/ui/$1',
     '^electron/(.*)$': '<rootDir>/src/electron/$1',
     '^domain/(.*)$': '<rootDir>/src/domain/$1',

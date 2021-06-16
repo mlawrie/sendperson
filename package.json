@@ -36,6 +36,7 @@
     "file-loader": "^6.2.0",
     "global-jsdom": "^8.1.0",
     "jest": "^27.0.4",
+    "jest-css-modules": "^2.1.0",
     "jest-environment-jsdom": "^27.0.3",
     "jest-environment-jsdom-global": "^2.0.4",
     "jsdom": "^16.6.0",
