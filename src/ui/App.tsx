@@ -15,14 +15,18 @@ export const App = () => {
   return (<div>
       <SplitPane split="vertical" defaultSize={'50%'} minSize={200}>
         <Pane>
-          <div className={`container-fluid ${styles.container}`}>
-            <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {
-            }}/>
+          <div className={styles.scroller}>
+            <div className={`container-fluid ${styles.container}`}>
+              <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {
+              }}/>
+            </div>
           </div>
         </Pane>
         <Pane>
-          <div className={`container-fluid ${styles.container}`} style={{backgroundColor: '#f0f0f0'}}>
-            <h3>Response</h3>
+          <div className={styles.scroller}>
+            <div className={`container-fluid ${styles.container}`} style={{backgroundColor: '#f0f0f0'}}>
+              <h3>Response</h3>
+            </div>
           </div>
         </Pane>
       </SplitPane>

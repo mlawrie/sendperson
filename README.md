@@ -19,14 +19,14 @@ To recompile automatically, run `yarn watch` as well
 1. ~~App scaffolding~~
    1. ~~Show a window~~
    1. ~~Save preferences~~
-1. Request UI
+1. ~~Request UI~~
    1. ~~Query params~~
    1. ~~Headers~~
    1. ~~Request bodies~~
-   1. Make it pretty
-   1. Figure out why monaco isn't highlighting syntax errors
+   1. ~~Make it pretty~~
 1. Response UI
-   1. Split pane with resize
+   1. ~~Horizontal split pane UI~~
+   1. Make split pane UI automatically resize when window resizes
    1. Response body
    1. Headers
    1. Status and time
@@ -34,6 +34,8 @@ To recompile automatically, run `yarn watch` as well
    1. Show generated headers, allow override
 1. Save responses and requests
 1. Tabs
+1. Missed requirements
+   1. Figure out why monaco isn't highlighting syntax errors
 1. Package for distribution: npm
 #### 1.1 Release   
 1. Collections
