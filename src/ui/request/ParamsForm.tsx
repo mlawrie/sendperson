@@ -72,7 +72,7 @@ export const ParamsForm = (props: Props) => {
     <article key={index} className={styles.formRow}>
       <ParamForm
         index={index}
-        entityId={entityName.replace(' ', '_')}
+        entityId={(entityName || '').replace(' ', '_')}
         param={q}
         onParamChanged={onParamChanged(index)}/>
       <div className={styles.buttonContainer}>
