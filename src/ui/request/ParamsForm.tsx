@@ -4,26 +4,45 @@ import {assignTo, curry3, eventChecked, eventValue, removeAt, replaceAt, withDef
 import {pipe} from 'ramda'
 import styles from './ParamsForm.scss'
 
-const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: RequestParam) => void, firstRow: boolean }>) => {
-  const {onParamChanged, param, firstRow} = props
+const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: RequestParam) => void, index: number, entityId: string }>) => {
+  const {onParamChanged, param, index, entityId} = props
+  const firstRow = index == 0
+
   const onChanged = pipe(withDefaults(param), onParamChanged)
 
-  const inputFor = (prop: keyof RequestParam) => (
-    <input type="text"
-           className={`${styles.input} ${firstRow ? styles.firstRow : ''}`}
-           data-testid={prop}
-           onChange={pipe(eventValue, assignTo<RequestParam>(prop), onChanged)}
-           value={param[prop] as any}/>
-  )
+
+  const inputFor = (prop: keyof RequestParam) => {
+    const id = `${entityId}-${prop}-${index}`
+    const label = firstRow ? <label htmlFor={id}>{prop}</label> : <Fragment/>
+    return (<div className="form-group">
+      {label}
+      <input type="text"
+             className="form-control"
+             data-testid={prop}
+             id={`${entityId}-${prop}-${index}`}
+             onChange={pipe(eventValue, assignTo<RequestParam>(prop), onChanged)}
+             value={param[prop] as any}/>
+    </div>)
+
+  }
 
   return <Fragment>
-    <input type="checkbox"
-           checked={param.enabled}
-           data-testid="enabled"
-           onChange={pipe(eventChecked, assignTo<RequestParam>('enabled'), onChanged)}/>
-    {inputFor('key')}
-    {inputFor('value')}
-    {inputFor('description')}
+    <div className={styles.checkboxContainer}>
+      <div className="form-check">
+        <input type="checkbox"
+               className="form-check-input"
+               checked={param.enabled}
+               data-testid="enabled"
+               onChange={pipe(eventChecked, assignTo<RequestParam>('enabled'), onChanged)}/>
+      </div>
+    </div>
+    <div className={styles.inputContainer}>
+
+      {inputFor('key')}
+      {inputFor('value')}
+      {inputFor('description')}
+
+    </div>
   </Fragment>
 }
 
@@ -50,19 +69,26 @@ export const ParamsForm = (props: Props) => {
   }
 
   const paramForms = params.map((q, index) =>
-    <article key={index}>
+    <article key={index} className={styles.formRow}>
       <ParamForm
-        firstRow={index === 0}
+        index={index}
+        entityId={entityName.replace(' ', '_')}
         param={q}
         onParamChanged={onParamChanged(index)}/>
-      <button data-testid="delete param" onClick={onDeletePressed(index) as any}>Delete</button>
+      <div className={styles.buttonContainer}>
+        <button data-testid="delete param"
+                className={`btn btn-secondary`}
+                onClick={onDeletePressed(index) as any}>Delete
+        </button>
+      </div>
     </article>)
 
   return (
     <section data-testid={entityName} className={styles.container}>
       <h6>{entityNamePluralCapitalized}</h6>
       {paramForms}
-      <button data-testid="params add button" onClick={onAddPressed}>Add {entityName}</button>
+      <button data-testid="params add button" className="btn btn-primary"
+              onClick={onAddPressed}>Add {entityName}</button>
     </section>
   )
 }
