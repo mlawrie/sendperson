@@ -26,7 +26,9 @@ To recompile automatically, run `yarn watch` as well
    1. ~~Make it pretty~~
 1. Response UI
    1. ~~Horizontal split pane UI~~
-   1. Make split pane UI automatically resize when window resizes
+      1. Make split pane UI automatically resize when window resizes
+      1. Save split pane position to preferences
+      1. Maybe rewrite or fix the split pane component as it seems to be jank
    1. Response body
    1. Headers
    1. Status and time

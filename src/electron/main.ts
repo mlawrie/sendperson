@@ -16,6 +16,7 @@ const createWindow = async() => {
       preload: path.join(__dirname, 'preload.js'),
     },
     width: preferences.window.width,
+    titleBarStyle: 'hidden'
   })
 
   // and load the index.html of the app.

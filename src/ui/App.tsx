@@ -12,7 +12,12 @@ export const App = () => {
     setRequest(request)
   }
 
-  return (<div>
+  return <div>
+      <header className='navbar fixed-top bg-dark navbar-dark'>
+        <div className={styles.header}>
+          <a className="navbar-brand" href="#">Sendperson</a>
+        </div>
+      </header>
       <SplitPane split="vertical" defaultSize={'50%'} minSize={200}>
         <Pane>
           <div className={styles.scroller}>
@@ -24,12 +29,11 @@ export const App = () => {
         </Pane>
         <Pane>
           <div className={styles.scroller}>
-            <div className={`container-fluid ${styles.container}`} style={{backgroundColor: '#f0f0f0'}}>
+            <div className={`container-fluid ${styles.container}`}>
               <h3>Response</h3>
             </div>
           </div>
         </Pane>
       </SplitPane>
     </div>
-  )
 }
