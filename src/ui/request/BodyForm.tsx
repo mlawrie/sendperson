@@ -4,6 +4,7 @@ import {ParamsForm} from 'ui/request/ParamsForm'
 import {pipe} from 'ramda'
 import {assignTo, eventValue, withDefaults} from 'utility/utilities'
 import {TextBodyForm} from 'ui/request/TextBodyForm'
+import styles from './BodyForm.scss'
 
 type Props = Readonly<{
   body: RequestBody
@@ -26,13 +27,16 @@ export const BodyForm = (props: Props) => {
 
   const textElement = <TextBodyForm format={body.format} text={body.text} onTextChanged={onTextChanged}/>
 
-  return <section data-testid="request body">
-    <h3>Request Body</h3>
+  return <section data-testid="request body" className={styles.container}>
+    <h6>Request Body</h6>
+
     <select defaultValue={body.format}
+            className="form-select form-select-sm"
             onChange={pipe(eventValue, onFormatChanged)}
             data-testid="format input">
       {BODY_FORMATS.map(bf => <option key={bf}>{bf}</option>)}
     </select>
+
     {TEXT_BODY_FORMATS.includes(body.format) ? textElement : <Fragment/>}
     {FORM_FIELDS_BODY_FORMATS.includes(body.format) ? paramsElement : <Fragment/>}
   </section>
