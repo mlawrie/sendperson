@@ -1,6 +1,6 @@
 import {ChangeEvent} from 'react'
 
-export const replaceAt = <T>(array: T[], index:number, item: T) =>
+export const replaceAt = <T>(array: T[], index: number, item: T) =>
   array.map((q, i) => {
     if (index == i) {
       return item

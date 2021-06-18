@@ -17,7 +17,7 @@ describe('registerEvents', () => {
     sandbox().stub(console, 'error')
     sandbox().stub(appPreferences, 'save')
     sandbox().useFakeTimers()
-    const mockWindow = {on: sandbox().stub().callsArg(1), getBounds: () => {throw new Error('banana')}}
+    const mockWindow = {on: sandbox().stub().callsArg(1), getBounds: () => { throw new Error('banana') }}
 
     registerEvents(mockWindow as any)
 

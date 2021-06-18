@@ -14,10 +14,10 @@ const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: Re
   const inputFor = (prop: keyof RequestParam) => {
     const id = `${entityId}-${prop}-${index}`
     const label = firstRow ? <label htmlFor={id}>{prop}</label> : <Fragment/>
-    return (<div className="form-group">
+    return (<div className='form-group'>
       {label}
-      <input type="text"
-             className="form-control"
+      <input type='text'
+             className='form-control form-control-sm'
              data-testid={prop}
              id={`${entityId}-${prop}-${index}`}
              onChange={pipe(eventValue, assignTo<RequestParam>(prop), onChanged)}
@@ -28,11 +28,11 @@ const ParamForm = (props: Readonly<{ param: RequestParam, onParamChanged: (p: Re
 
   return <Fragment>
     <div className={styles.checkboxContainer}>
-      <div className="form-check">
-        <input type="checkbox"
-               className="form-check-input"
+      <div className='form-check'>
+        <input type='checkbox'
+               className='form-check-input'
                checked={param.enabled}
-               data-testid="enabled"
+               data-testid='enabled'
                onChange={pipe(eventChecked, assignTo<RequestParam>('enabled'), onChanged)}/>
       </div>
     </div>
@@ -76,8 +76,8 @@ export const ParamsForm = (props: Props) => {
         param={q}
         onParamChanged={onParamChanged(index)}/>
       <div className={styles.buttonContainer}>
-        <button data-testid="delete param"
-                className={`btn btn-secondary`}
+        <button data-testid='delete param'
+                className={`btn btn-secondary btn-sm`}
                 onClick={onDeletePressed(index) as any}>Delete
         </button>
       </div>
@@ -87,7 +87,7 @@ export const ParamsForm = (props: Props) => {
     <section data-testid={entityName} className={styles.container}>
       <h6>{entityNamePluralCapitalized}</h6>
       {paramForms}
-      <button data-testid="params add button" className="btn btn-primary"
+      <button data-testid='params add button' className='btn btn-primary btn-sm'
               onClick={onAddPressed}>Add {entityName}</button>
     </section>
   )

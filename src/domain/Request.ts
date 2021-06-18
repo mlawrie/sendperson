@@ -33,11 +33,11 @@ export const defaultParam = (): RequestParam => ({key: '', description: '', valu
 export const defaultRequest = (): Request => ({
   method: 'GET',
   uri: '',
-  queryParams: [defaultParam(), defaultParam(), defaultParam()],
-  headers: [defaultParam(), defaultParam(), defaultParam()],
+  queryParams: [defaultParam(), defaultParam()],
+  headers: [defaultParam(), defaultParam()],
   body: {
     format: 'none',
     text: '',
-    fields: [defaultParam(), defaultParam(), defaultParam()]
+    fields: [defaultParam(), defaultParam()]
   }
 })

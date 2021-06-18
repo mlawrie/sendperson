@@ -15,10 +15,10 @@ export const App = () => {
   return <div>
       <header className='navbar fixed-top bg-dark navbar-dark'>
         <div className={styles.header}>
-          <a className="navbar-brand" href="#">Sendperson</a>
+          <a className='navbar-brand' href='#'>Sendperson</a>
         </div>
       </header>
-      <SplitPane split="vertical" defaultSize={'50%'} minSize={200}>
+      <SplitPane split='vertical' defaultSize={'50%'} minSize={200}>
         <Pane>
           <div className={styles.scroller}>
             <div className={`container-fluid ${styles.container}`}>

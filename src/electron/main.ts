@@ -6,7 +6,7 @@ import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
 import {registerEvents} from './registerEvents'
 
-const createWindow = async() => {
+const createWindow = async () => {
 
   const preferences = await appPreferences.read()
   const mainWindow = new BrowserWindow({

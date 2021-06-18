@@ -4,7 +4,7 @@ import {eventValue} from 'utility/utilities'
 
 const MonacoEditor = (props: { value: string, onChange: (value: string) => void }) => {
   return <textarea
-    data-testid="request body text"
+    data-testid='request body text'
     value={props.value}
     onChange={pipe(eventValue, props.onChange)}
   />
