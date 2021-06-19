@@ -7,12 +7,11 @@ type TabListProps<T> = Readonly<{
   selected: number
   renderTitle: (item: T) => string
   getId: (item: T) => string
-  renderItem: (item: T) => JSX.Element
   onSelected: (index: number) => void
 }>
 
 export const TabList = <T, U>(props: TabListProps<T>) => {
-  const {items, selected, renderTitle, renderItem, onSelected, getId} = props
+  const {items, selected, renderTitle, onSelected, getId} = props
 
   const renderTab = (item: T, index: number) => {
     const onClick: MouseEventHandler = pipe(preventDefault, () => onSelected(index))
@@ -27,6 +26,5 @@ export const TabList = <T, U>(props: TabListProps<T>) => {
     <ul className="nav nav-tabs">
       {items.map(renderTab)}
     </ul>
-    {renderItem(items[selected])}
   </Fragment>
 }

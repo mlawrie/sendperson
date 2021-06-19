@@ -1,5 +1,5 @@
 
-.header {
+.brandWrapper {
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;
@@ -7,10 +7,21 @@
   -webkit-app-region: drag;
 }
 
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
 .splitPane {
   padding-top: 60px;
 }
 
+.tabList {
+  margin-left: 100px;
+}
 :global {
   .Resizer {
     background: #000;

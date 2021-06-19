@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react'
+import React, {FunctionComponent, useContext, useState} from 'react'
 import {defaultTransaction, Transaction} from 'domain/Transaction'
 import {curry2, replaceAt} from 'utility/utilities'
 import R, {append, flip, pipe, uniqBy} from 'ramda'
@@ -12,6 +12,7 @@ type TransactionsState = Readonly<{
 export type TransactionsContext = TransactionsState & Readonly<{
   saveTransaction: (transaction: Transaction) => void
   updateTransaction: (uuid: string, t: Partial<Transaction>) => void
+  highlightTransaction: (uuid: string) => void
 }>
 
 
@@ -19,14 +20,13 @@ const context = React.createContext<TransactionsContext>({
   transactions: [],
   visibleUuids: [],
   highlightedUuid: '',
-  saveTransaction: () => {
-  },
-  updateTransaction: () => {
-  }
+  saveTransaction: () => {},
+  updateTransaction: () => {},
+  highlightTransaction: () => {}
 })
 
 export const TransactionsContextConsumer = context.Consumer
-
+export const useTransactionsContext = () => useContext(context)
 const getExisting = (transactions: Transaction[], uuid: string): Transaction => {
   return transactions.filter(t => t.uuid === uuid)[0]
 }
@@ -73,6 +73,7 @@ export const TransactionsContextProvider: FunctionComponent<Record<string, unkno
     highlightedUuid,
     visibleUuids,
     saveTransaction,
+    highlightTransaction: setHighlightedUuid,
     updateTransaction: pipe(getUpdated, saveTransaction)
   }
 

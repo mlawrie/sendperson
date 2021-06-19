@@ -9,15 +9,18 @@ describe('TransactionsContext', () => {
     const {container} = render(<TransactionsContextProvider>
       <TransactionsContextConsumer>
         {value => <Fragment>
-
           <div data-testid="save button"
                onClick={(e) => value.saveTransaction(e.detail as any)}>
-
           </div>
           <div data-testid="update button"
                onClick={(e) => {
                  const data = e.detail as any
                  value.updateTransaction(data.uuid, data.transaction)
+               }}>
+          </div>
+          <div data-testid="highlight button"
+               onClick={(e) => {
+                 value.highlightTransaction(e.detail as any)
                }}>
           </div>
           {textToRender(value)}
@@ -77,6 +80,19 @@ describe('TransactionsContext', () => {
     await dispatchEvent(transaction, 'save button')
 
     expect(container.textContent).toEqual('count: 2')
+  })
+
+  it('highlights an existing transaction', async () => {
+    const {container} = await setup(({highlightedUuid}) => highlightedUuid)
+
+    const saved1 = {...defaultTransaction(), uuid: 'foo123'}
+    const saved2 = {...defaultTransaction(), uuid: 'bar234'}
+    await dispatchEvent(saved1, 'save button')
+    await dispatchEvent(saved2, 'save button')
+
+    expect(container.textContent).toEqual('bar234')
+    await dispatchEvent('foo123', 'highlight button')
+    expect(container.textContent).toEqual('foo123')
   })
 
   it('updates the request portion of an existing transaction', async () => {
