@@ -13,27 +13,25 @@ export const App = () => {
   }
 
   return <div>
-      <header className='navbar fixed-top bg-dark navbar-dark'>
-        <div className={styles.header}>
-          <a className='navbar-brand' href='#'>Sendperson</a>
+    <header className='navbar fixed-top bg-dark navbar-dark'>
+      <div className={styles.header}>
+        <a className='navbar-brand' href='#'>Sendperson</a>
+      </div>
+    </header>
+    <SplitPane className={styles.splitPane} split='vertical' defaultSize={'50%'} minSize={200}>
+      <Pane>
+        <div className={`container-fluid ${styles.container}`}>
+          <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {
+          }}/>
         </div>
-      </header>
-      <SplitPane split='vertical' defaultSize={'50%'} minSize={200}>
-        <Pane>
-          <div className={styles.scroller}>
-            <div className={`container-fluid ${styles.container}`}>
-              <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {
-              }}/>
-            </div>
+      </Pane>
+      <Pane>
+        <div className={styles.scroller}>
+          <div className={`container-fluid ${styles.container}`}>
+            <h3>Response</h3>
           </div>
-        </Pane>
-        <Pane>
-          <div className={styles.scroller}>
-            <div className={`container-fluid ${styles.container}`}>
-              <h3>Response</h3>
-            </div>
-          </div>
-        </Pane>
-      </SplitPane>
-    </div>
+        </div>
+      </Pane>
+    </SplitPane>
+  </div>
 }
