@@ -62,8 +62,8 @@ export const TextBodyForm = (props: Readonly<{ onTextChanged: (a: string) => voi
         overviewRulerLanes: 0
       }}
       language={language}
-      theme='vs-light'
-      width='100%'
+      theme="vs-light"
+      width="100%"
       value={text}
       editorDidMount={editorDidMount}
       onChange={onTextChanged}

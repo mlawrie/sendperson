@@ -13,12 +13,12 @@ export const App = () => {
   }
 
   return <div>
-    <header className='navbar fixed-top bg-dark navbar-dark'>
+    <header className="navbar fixed-top bg-dark navbar-dark">
       <div className={styles.header}>
-        <a className='navbar-brand' href='#'>Sendperson</a>
+        <a className="navbar-brand" href="#">Sendperson</a>
       </div>
     </header>
-    <SplitPane className={styles.splitPane} split='vertical' defaultSize={'50%'} minSize={200}>
+    <SplitPane className={styles.splitPane} split="vertical" defaultSize={'50%'} minSize={200}>
       <Pane>
         <div className={`container-fluid ${styles.container}`}>
           <RequestForm request={request} onRequestChanged={onRequestChanged} onSendPressed={() => {

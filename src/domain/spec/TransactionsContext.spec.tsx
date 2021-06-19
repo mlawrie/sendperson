@@ -9,7 +9,7 @@ describe('TransactionsContext', () => {
     const transactionToSave = defaultTransaction()
     const {container} = render(<TransactionsContextProvider>
       <TransactionsContextConsumer>
-        {value => <div data-testid='button'
+        {value => <div data-testid="button"
                        onClick={() => value.saveTransaction(transactionToSave)}>
           count: {value.transactions.length}
         </div>}

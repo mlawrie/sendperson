@@ -60,7 +60,7 @@
         "skipTemplates": true
       }
     ],
-    "jsx-quotes": ["error", "prefer-single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-indent-props": [
       "error",
       "first"

@@ -7,7 +7,7 @@ const TextInput = (props: Readonly<{ onChange: (value: string) => void, value: s
 
   return <label>
     {label ? <span>{label}</span> : <Fragment/>}
-    <input type='text'
+    <input type="text"
            data-testid={testId}
            onChange={pipe(eventValue, onChange)}
            value={value}/>
