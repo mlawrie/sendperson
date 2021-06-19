@@ -25,6 +25,7 @@ To recompile automatically, run `yarn watch` as well
    1. ~~Request bodies~~
    1. ~~Make it pretty~~
    1. Replace 'description' field with query/path parameter dropdown
+1. ~~Show multiple requests in different tabs~~
 1. Response UI
    1. ~~Horizontal split pane UI~~
    1. Response body
@@ -33,8 +34,9 @@ To recompile automatically, run `yarn watch` as well
 1. Actually send responses and show results
    1. Show generated headers, allow override
 1. Save responses and requests
-1. Tabs
+
 1. Missed requirements
+   1. Handle more tabs than width of window
    1. Figure out why monaco isn't highlighting syntax errors
    1. Split pane
       1. Make split pane UI automatically resize when window resizes
