@@ -1,5 +1,5 @@
 import React from 'react'
-import {TransactionsContext, TransactionsContextConsumer, TransactionsContextProvider} from 'domain/TransactionsContext'
+import {TransactionsContext, TransactionsContextProvider, transactionsContextInstance} from 'domain/TransactionsContext'
 import {defaultTransaction, Transaction} from 'domain/Transaction'
 import {renderGetContext, TestContextRenderFunction} from 'utility/spec/specHelper'
 import {act} from '@testing-library/react'
@@ -8,9 +8,9 @@ import {defaultRequest} from 'domain/Request'
 describe('TransactionsContext', () => {
   const renderTestSetup: TestContextRenderFunction<TransactionsContext> = (testContents) =>
     <TransactionsContextProvider>
-      <TransactionsContextConsumer>
+      <transactionsContextInstance.Consumer>
         {testContents}
-      </TransactionsContextConsumer>
+      </transactionsContextInstance.Consumer>
     </TransactionsContextProvider>
 
   it('saves a new transaction', () => {

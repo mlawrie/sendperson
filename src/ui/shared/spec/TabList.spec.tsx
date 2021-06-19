@@ -5,16 +5,19 @@ import React from 'react'
 describe('TabList', () => {
   let onSelected: jest.Mock
   let onClosed: jest.Mock
+  let onNewClicked: jest.Mock
   const secondTab = async () => await screen.findByText('title: b')
 
   const setup = (args: {selected: number}) => {
     onSelected = jest.fn()
     onClosed = jest.fn()
+    onNewClicked = jest.fn()
     render(<TabList items={['a', 'b', 'c']}
                     selected={args.selected}
                     renderTitle={i => `title: ${i}`}
                     getId={i => `id: ${i}`}
                     onClosed={onClosed}
+                    onNewClicked={onNewClicked}
                     onSelected={onSelected}/>)
   }
 
@@ -22,11 +25,6 @@ describe('TabList', () => {
     setup({selected: 0})
     const tabs = await screen.findAllByTestId('tab')
     expect(tabs.map(t => t.textContent)).toEqual(['title: a', 'title: b', 'title: c'])
-  })
-
-  it('renders current tab', async () => {
-    setup({selected: 1})
-    expect((await secondTab()).className).toContain('active')
   })
 
   it('calls onSelected when tab clicked', async () => {

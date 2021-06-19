@@ -18,6 +18,7 @@ export const eventValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement |
 export const eventChecked = (e: ChangeEvent<HTMLInputElement>) => e.target.checked
 export const preventDefault = <T, U>(e: UIEvent<T, U>) => {
   e.preventDefault()
+  e.stopPropagation()
   return e
 }
 

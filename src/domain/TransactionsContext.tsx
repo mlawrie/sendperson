@@ -31,8 +31,6 @@ const context = React.createContext<TransactionsContext>({
   }
 })
 
-export const TransactionsContextConsumer = context.Consumer
-export const useTransactionsContext = () => useContext(context)
 const getExisting = (transactions: Transaction[], uuid: string): Transaction => {
   return transactions.filter(t => t.uuid === uuid)[0]
 }
@@ -53,6 +51,7 @@ const getInitialState = (): TransactionsState => {
     visibleUuids: [initialTransaction.uuid]
   }
 }
+const initialState = getInitialState()
 
 const appendTo = flip(append)
 const filteredFrom = <T, U>(haystack: T[]) => (needle: T) => filter(i => i !== needle, haystack)
@@ -60,7 +59,6 @@ const filteredFrom = <T, U>(haystack: T[]) => (needle: T) => filter(i => i !== n
 const uniqueUuid = uniqBy((uuid: string) => uuid)
 
 export const TransactionsContextProvider: FunctionComponent<Record<string, unknown>> = (props) => {
-  const initialState = getInitialState()
 
   const [transactions, setTransactions] = useState<TransactionsState['transactions']>(initialState.transactions)
   const [highlightedUuid, setHighlightedUuid] = useState<TransactionsState['highlightedUuid']>(initialState.highlightedUuid)
@@ -95,3 +93,6 @@ export const TransactionsContextProvider: FunctionComponent<Record<string, unkno
 
   return <context.Provider value={contextValue}>{props.children}</context.Provider>
 }
+
+export const transactionsContextInstance = context
+export const useTransactionsContext = () => useContext(context)

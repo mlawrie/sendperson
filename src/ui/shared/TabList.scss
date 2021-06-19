@@ -1,0 +1,81 @@
+.closeButton {
+  background: transparent;
+  margin: 0 -0.75rem 0 0.25rem;
+  height: 38px;
+  width: 30px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  svg {
+    color: #fff;
+    width: 23px;
+    height: 23px;
+    border-radius: 1000px;
+    transition: background-color 0.15s ease-in-out;
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+a.addButton {
+  svg {
+    color: #fff;
+    width: 27px;
+    height: 27px;
+    margin: -4px -3px -2px -3px;
+  }
+}
+.navLink {
+  background: none;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  height: 40px;
+  border-top-right-radius: 0.25rem;
+  display: flex;
+  padding: 0 1rem;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom-color: transparent;
+  }
+  button {
+    color: #fff;
+  }
+
+  span {
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+.active {
+  color: #495057;
+  &:hover {
+    color: #495057;
+    background-color: #fff;
+    border-color: #fff;
+  }
+  background-color: #fff;
+  border-color: transparent;
+  svg {
+    color: #495057;
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
