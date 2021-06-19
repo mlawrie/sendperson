@@ -24,11 +24,9 @@ To recompile automatically, run `yarn watch` as well
    1. ~~Headers~~
    1. ~~Request bodies~~
    1. ~~Make it pretty~~
+   1. Replace 'description' field with query/path parameter dropdown
 1. Response UI
    1. ~~Horizontal split pane UI~~
-      1. Make split pane UI automatically resize when window resizes
-      1. Save split pane position to preferences
-      1. Maybe rewrite or fix the split pane component as it seems to be jank
    1. Response body
    1. Headers
    1. Status and time
@@ -38,6 +36,11 @@ To recompile automatically, run `yarn watch` as well
 1. Tabs
 1. Missed requirements
    1. Figure out why monaco isn't highlighting syntax errors
+   1. Split pane
+      1. Make split pane UI automatically resize when window resizes
+      1. Save split pane position to preferences
+      1. Maybe rewrite or fix the split pane component as it seems to be jank
+
 1. Package for distribution: npm
 #### 1.1 Release   
 1. Collections
