@@ -1,10 +1,15 @@
 import React, {FunctionComponent, useState} from 'react'
 import {defaultTransaction, Transaction} from 'domain/Transaction'
 import {curry2, replaceAt} from 'utility/utilities'
-import {mergeLeft, mergeRight, pipe} from 'ramda'
+import R, {append, flip, pipe, uniqBy} from 'ramda'
 
-export type TransactionsContext = Readonly<{
+type TransactionsState = Readonly<{
   transactions: Transaction[],
+  visibleUuids: string[],
+  highlightedUuid: string
+}>
+
+export type TransactionsContext = TransactionsState & Readonly<{
   saveTransaction: (transaction: Transaction) => void
   updateTransaction: (uuid: string, t: Partial<Transaction>) => void
 }>
@@ -12,6 +17,8 @@ export type TransactionsContext = Readonly<{
 
 const context = React.createContext<TransactionsContext>({
   transactions: [],
+  visibleUuids: [],
+  highlightedUuid: '',
   saveTransaction: () => {
   },
   updateTransaction: () => {
@@ -32,18 +39,39 @@ const replaceOrAdd = (transactions: Transaction[], value: Transaction): Transact
   return [...transactions, value]
 }
 
+const getInitialState = (): TransactionsState => {
+  const initialTransaction = defaultTransaction()
+  return {
+    transactions: [initialTransaction],
+    highlightedUuid: initialTransaction.uuid,
+    visibleUuids: [initialTransaction.uuid]
+  }
+}
+
+const appendTo = flip(append)
+const uniqueUuid = uniqBy((uuid: string) => uuid)
+
 export const TransactionsContextProvider: FunctionComponent<Record<string, unknown>> = (props) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([defaultTransaction()])
+  const initialState = getInitialState()
+
+  const [transactions, setTransactions] = useState<TransactionsState['transactions']>(initialState.transactions)
+  const [highlightedUuid, setHighlightedUuid] = useState<TransactionsState['highlightedUuid']>(initialState.highlightedUuid)
+  const [visibleUuids, setVisibleUuids] = useState<TransactionsState['visibleUuids']>(initialState.visibleUuids)
+
+  const addVisibleUuid = pipe(appendTo(visibleUuids), uniqueUuid, setVisibleUuids)
+  const addTransaction = pipe(curry2(replaceOrAdd)(transactions), setTransactions)
+  const getUpdated = (uuid: string, t: Partial<Transaction>): Transaction => ({...getExisting(transactions, uuid), ...t})
 
   const saveTransaction = (t: Transaction) => {
-    const newList = replaceOrAdd(transactions, t)
-    setTransactions(newList)
+    addTransaction(t)
+    setHighlightedUuid(t.uuid)
+    addVisibleUuid(t.uuid)
   }
-
-  const getUpdated = (uuid: string, t: Partial<Transaction>): Transaction => ({...getExisting(transactions, uuid), ...t})
 
   const contextValue: TransactionsContext = {
     transactions,
+    highlightedUuid,
+    visibleUuids,
     saveTransaction,
     updateTransaction: pipe(getUpdated, saveTransaction)
   }

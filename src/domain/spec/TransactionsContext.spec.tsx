@@ -1,11 +1,11 @@
 import {render, screen} from '@testing-library/react'
 import React, {Fragment} from 'react'
-import {TransactionsContextConsumer, TransactionsContextProvider} from 'domain/TransactionsContext'
+import {TransactionsContext, TransactionsContextConsumer, TransactionsContextProvider} from 'domain/TransactionsContext'
 import {defaultTransaction, Transaction} from 'domain/Transaction'
 import {defaultRequest} from 'domain/Request'
 
 describe('TransactionsContext', () => {
-  const setup = async (textToRender: (transactions: Transaction[]) => string) => {
+  const setup = async (textToRender: (context: TransactionsContext) => string) => {
     const {container} = render(<TransactionsContextProvider>
       <TransactionsContextConsumer>
         {value => <Fragment>
@@ -20,7 +20,7 @@ describe('TransactionsContext', () => {
                  value.updateTransaction(data.uuid, data.transaction)
                }}>
           </div>
-          {textToRender(value.transactions)}
+          {textToRender(value)}
         </Fragment>}
       </TransactionsContextConsumer>
     </TransactionsContextProvider>)
@@ -41,14 +41,34 @@ describe('TransactionsContext', () => {
 
 
   it('saves a new transaction', async () => {
-    const {container} = await setup((t) => `count: ${t.length}`)
+    const {container} = await setup(({transactions}) => `count: ${transactions.length}`)
     expect(container.textContent).toEqual('count: 1')
     await dispatchEvent(defaultTransaction(), 'save button')
     expect(container.textContent).toEqual('count: 2')
   })
 
+  it('sets new transaction as highlighted', async () => {
+    const {container} = await setup(({highlightedUuid}) => `highlight: ${highlightedUuid}`)
+
+    const saved = {...defaultTransaction(), uuid: 'foo123'}
+    await dispatchEvent(saved, 'save button')
+    expect(container.textContent).toEqual('highlight: foo123')
+  })
+
+  it('adds new transaction to visible list if not already present', async () => {
+    const {container} = await setup(({visibleUuids}) => JSON.stringify(visibleUuids))
+
+    const saved = {...defaultTransaction(), uuid: 'foo123'}
+    await dispatchEvent(saved, 'save button')
+    expect(JSON.parse(container.textContent)).toContain('foo123')
+    expect(JSON.parse(container.textContent).length).toEqual(2)
+
+    await dispatchEvent(saved, 'save button')
+    expect(JSON.parse(container.textContent).length).toEqual(2)
+  })
+
   it('replaces an existing transaction', async () => {
-    const {container} = await setup((t) => `count: ${t.length}`)
+    const {container} = await setup(({transactions}) => `count: ${transactions.length}`)
 
     expect(container.textContent).toEqual('count: 1')
 
@@ -60,8 +80,8 @@ describe('TransactionsContext', () => {
   })
 
   it('updates the request portion of an existing transaction', async () => {
-    const getUris = (transactions: Transaction[]) => transactions.map(t => t.request.uri)
-    const {container} = await setup((t) => `uris: ${JSON.stringify(getUris(t))}`)
+    const getUris = (context: TransactionsContext) => context.transactions.map(t => t.request.uri)
+    const {container} = await setup((c) => `uris: ${JSON.stringify(getUris(c))}`)
     const transaction = {...defaultTransaction(), request: {...defaultRequest(), uri: 'https://example.com'}}
 
     await dispatchEvent(transaction, 'save button')

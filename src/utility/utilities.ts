@@ -1,4 +1,4 @@
-import {ChangeEvent} from 'react'
+import {ChangeEvent, UIEvent} from 'react'
 
 export const replaceAt = <T>(array: T[], index: number, item: T) =>
   array.map((q, i) => {
@@ -16,6 +16,10 @@ export const removeAt = <T>(array: T[], index: number) =>
 
 export const eventValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => e.target.value
 export const eventChecked = (e: ChangeEvent<HTMLInputElement>) => e.target.checked
+export const preventDefault = <T, U>(e: UIEvent<T, U>) => {
+  e.preventDefault()
+  return e
+}
 
 export const assignTo = <T>(key: keyof T) => (value: T[typeof key]) => ({[key]: value})
 
