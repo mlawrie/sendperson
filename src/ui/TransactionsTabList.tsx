@@ -15,9 +15,11 @@ export const TransactionsTabList = () => {
   const selectedIndex = indexOf(context.highlightedUuid, context.visibleUuids)
   const visibleTransactions = filter(where({uuid: isIn(context.visibleUuids)}), context.transactions)
 
+
   return <TabList items={visibleTransactions}
                   selected={selectedIndex}
                   renderTitle={getTransactionTitle}
                   getId={t => t.uuid}
+                  onClosed={onClosed}
                   onSelected={onSelected}/>
 }

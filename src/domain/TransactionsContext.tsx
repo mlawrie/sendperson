@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useContext, useState} from 'react'
 import {defaultTransaction, Transaction} from 'domain/Transaction'
 import {curry2, replaceAt} from 'utility/utilities'
-import R, {append, flip, pipe, uniqBy} from 'ramda'
+import {append, filter, flip, nth, pipe, uniqBy} from 'ramda'
 
 type TransactionsState = Readonly<{
   transactions: Transaction[],
@@ -13,6 +13,7 @@ export type TransactionsContext = TransactionsState & Readonly<{
   saveTransaction: (transaction: Transaction) => void
   updateTransaction: (uuid: string, t: Partial<Transaction>) => void
   highlightTransaction: (uuid: string) => void
+  hideTransaction: (uuid: string) => void
 }>
 
 
@@ -20,9 +21,14 @@ const context = React.createContext<TransactionsContext>({
   transactions: [],
   visibleUuids: [],
   highlightedUuid: '',
-  saveTransaction: () => {},
-  updateTransaction: () => {},
-  highlightTransaction: () => {}
+  saveTransaction: () => {
+  },
+  updateTransaction: () => {
+  },
+  highlightTransaction: () => {
+  },
+  hideTransaction: () => {
+  }
 })
 
 export const TransactionsContextConsumer = context.Consumer
@@ -49,6 +55,8 @@ const getInitialState = (): TransactionsState => {
 }
 
 const appendTo = flip(append)
+const filteredFrom = <T, U>(haystack: T[]) => (needle: T) => filter(i => i !== needle, haystack)
+
 const uniqueUuid = uniqBy((uuid: string) => uuid)
 
 export const TransactionsContextProvider: FunctionComponent<Record<string, unknown>> = (props) => {
@@ -59,7 +67,9 @@ export const TransactionsContextProvider: FunctionComponent<Record<string, unkno
   const [visibleUuids, setVisibleUuids] = useState<TransactionsState['visibleUuids']>(initialState.visibleUuids)
 
   const addVisibleUuid = pipe(appendTo(visibleUuids), uniqueUuid, setVisibleUuids)
+  const removeVisibleUuid = pipe(filteredFrom(visibleUuids), setVisibleUuids)
   const addTransaction = pipe(curry2(replaceOrAdd)(transactions), setTransactions)
+  const setNextHighlighted = pipe(filteredFrom(visibleUuids), nth(-1), setHighlightedUuid)
   const getUpdated = (uuid: string, t: Partial<Transaction>): Transaction => ({...getExisting(transactions, uuid), ...t})
 
   const saveTransaction = (t: Transaction) => {
@@ -68,12 +78,18 @@ export const TransactionsContextProvider: FunctionComponent<Record<string, unkno
     addVisibleUuid(t.uuid)
   }
 
+  const hideTransaction = (uuid: string) => {
+    removeVisibleUuid(uuid)
+    setNextHighlighted(uuid)
+  }
+
   const contextValue: TransactionsContext = {
     transactions,
     highlightedUuid,
     visibleUuids,
     saveTransaction,
     highlightTransaction: setHighlightedUuid,
+    hideTransaction,
     updateTransaction: pipe(getUpdated, saveTransaction)
   }
 

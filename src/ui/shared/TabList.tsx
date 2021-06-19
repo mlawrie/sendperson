@@ -8,10 +8,11 @@ type TabListProps<T> = Readonly<{
   renderTitle: (item: T) => string
   getId: (item: T) => string
   onSelected: (index: number) => void
+  onClosed: (index: number) => void
 }>
 
 export const TabList = <T, U>(props: TabListProps<T>) => {
-  const {items, selected, renderTitle, onSelected, getId} = props
+  const {items, selected, renderTitle, onSelected, getId, onClosed} = props
 
   const renderTab = (item: T, index: number) => {
     const onClick: MouseEventHandler = pipe(preventDefault, () => onSelected(index))
@@ -19,6 +20,9 @@ export const TabList = <T, U>(props: TabListProps<T>) => {
       <a className={`nav-link ${index === selected ? 'active' : ''}`} href="#" onClick={onClick}>
         {renderTitle(items[index])}
       </a>
+      <a data-testid="close button"
+         onClick={pipe(preventDefault, () => onClosed(index))}
+         href="#">X</a>
     </li>
   }
 
