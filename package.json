@@ -15,6 +15,7 @@
   "author": "Michael Lawrie <michael@michaellawrie.com>",
   "devDependencies": {
     "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
     "@types/chai": "^4.2.18",
     "@types/deep-extend": "^0.4.31",
     "@types/jest": "^26.0.23",
